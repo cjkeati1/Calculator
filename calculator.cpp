@@ -2,14 +2,20 @@
 #include "ui_calculator.h"
 #include "math.h"
 #include "random"
+#include "time.h"
+
+#include <cstdlib>
+#include <ctime>
 
 Calculator::Calculator(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Calculator)
 {
     ui->setupUi(this);
-
     ui->Display->setText(QString::number(calcVal));
+
+    srand((unsigned)time(NULL)); // Randomizes seed by returning the integer number of seconds from the system clock
+
     QPushButton *numButtons[10];
     for (int i = 0; i < 10; i++) {
         QString butName = "Button_" + QString::number(i);
@@ -44,32 +50,32 @@ void Calculator::NumPressed(){
     QString butVal = button->text();
     QString displayVal = ui->Display->text();
     QRegExp reg("[-]?[0-9.]*");
-    if(((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && (!decimalTrigger)){
+    if(((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && (!decimalTrigger)){ // Display is empty and decimal point was NOT pressed
         ui->Display->setText(butVal);
-    }  else if(butVal == "0"){
+    }
+
+    // Adding zeroes onto existing number after decimal place (converting to double after this would yield the same number as before)
+    // Example: static_cast<double>(25.5600) == 25.56
+    // So treat it as a string
+    else if(butVal == "0" && decimalTrigger){
         QString newVal = displayVal + butVal;
         ui->Display->setText(newVal);
     }
-    else {
+    else { // After decimal but not 0
         QString newVal = displayVal + butVal;
         double dblNewVal = newVal.toDouble();
         ui->Display->setText(QString::number(dblNewVal, 'g', 16));
-
     }
 }
 
 void Calculator::MathButtonPressed(){
     decimalTrigger = false;
 
-    if(!addTrigger && !subTrigger && !multTrigger && !divTrigger){ // No trigger was pushed prior to this one and after the last equal sign
-         GetMathButton();
-         ui->Display->setText("");
-    } else{
-        QString displayVal = ui->Display->text();
-        calcVal = displayVal.toDouble();
-        EqualButton();
-        GetMathButton();
-    }
+    QPushButton *button = static_cast<QPushButton *>(sender());
+    QString butVal = button->text();
+
+    GetMathButton();
+    ui->Display->setText(butVal);
 }
 
 void Calculator::EqualButton(){
@@ -91,6 +97,7 @@ void Calculator::EqualButton(){
     }
 
     ClearOperatorTriggers();
+
 
     decimalTrigger = (solution - static_cast<int>(solution) != 0);
 
@@ -137,7 +144,11 @@ void Calculator::EulersNumberPressed(){
 }
 
 void Calculator::RandomNumberPressed(){
-    double r = (static_cast<double>(rand()) / (INT_MAX)) + 1;
+    double max = 1.;
+    double min = 0.;
+
+    // Generates random number from [min, max)
+    double r = min + (rand() / ( RAND_MAX / (max - min) ) ) ;
 
     ui->Display->setText(QString::number(r));
 }
@@ -172,8 +183,6 @@ void Calculator::ClearOperatorTriggers(){
 }
 
 void Calculator::GetMathButton(){
-    ClearOperatorTriggers();
-
     QString displayVal = ui->Display->text();
     calcVal = displayVal.toDouble();
     QPushButton *button = static_cast<QPushButton *>(sender());
