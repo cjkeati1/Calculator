@@ -69,6 +69,7 @@ void Calculator::NumPressed(){
 }
 
 void Calculator::MathButtonPressed(){
+    operationsInARowCount++;
     decimalTrigger = false;
 
     QPushButton *button = static_cast<QPushButton *>(sender());
@@ -79,6 +80,7 @@ void Calculator::MathButtonPressed(){
 }
 
 void Calculator::EqualButton(){
+    operationsInARowCount = 0;
     double solution = 0.0;
     QString displayVal = ui->Display->text();
     double dblDisplayVal = displayVal.toDouble();
@@ -184,9 +186,12 @@ void Calculator::ClearOperatorTriggers(){
 
 void Calculator::GetMathButton(){
     QString displayVal = ui->Display->text();
-    calcVal = displayVal.toDouble();
+
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
+
+    if(operationsInARowCount > 1) ClearOperatorTriggers();
+    else calcVal = displayVal.toDouble();
 
     if(QString::compare(butVal, "/", Qt::CaseInsensitive) == 0){
         divTrigger = true;

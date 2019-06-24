@@ -28,7 +28,7 @@ private:
     bool subTrigger = false;
     bool decimalTrigger = false;
     // bool operatorTrigger = false;
-    // int operationsInARowCount = 0;
+     int operationsInARowCount = 0;
 
 private slots:
     void NumPressed();
