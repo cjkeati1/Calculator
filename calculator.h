@@ -26,9 +26,10 @@ private:
     bool multTrigger = false;
     bool addTrigger = false;
     bool subTrigger = false;
-    bool decimalTrigger = false;
-    // bool operatorTrigger = false;
-     int operationsInARowCount = 0;
+    bool isWhole = true;
+    bool operatorTrigger = false;
+    int operationsInARowCount = 0;
+    int operationsBeforePressingEqualCount = 0;
 
 private slots:
     void NumPressed();
@@ -46,6 +47,8 @@ private slots:
     void ClearAllTriggers();
     void ClearOperatorTriggers();
     void GetMathButton();
+    void PressedOnEqualButtonDirectly();
+    bool displayIsEmpty();
    // void UpdateCalcValue();
 };
 

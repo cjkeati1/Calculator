@@ -31,6 +31,7 @@ Calculator::Calculator(QWidget *parent) :
     connect(ui->Button_Equals, SIGNAL(released()), this, SLOT(EqualButton()));
     connect(ui->Button_Sign, SIGNAL(released()), this, SLOT(ChangeNumberSign()));
     connect(ui->Button_Clear, SIGNAL(released()), this, SLOT(ClearButtonPressed()));
+    connect(ui->Button_Equals, SIGNAL(released()), this, SLOT(PressedOnEqualButtonDirectly()));
     connect(ui->Button_MemClear, SIGNAL(released()), this, SLOT(MemoryClear()));
     connect(ui->Button_MemAdd, SIGNAL(released()), this, SLOT(MemoryAdd()));
     connect(ui->Button_MemGet, SIGNAL(released()), this, SLOT(MemoryGet()));
@@ -46,18 +47,20 @@ Calculator::~Calculator()
 }
 
 void Calculator::NumPressed(){
+
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
     QString displayVal = ui->Display->text();
     QRegExp reg("[-]?[0-9.]*");
-    if(((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && (!decimalTrigger)){ // Display is empty and decimal point was NOT pressed
+
+    if((displayIsEmpty() || operatorTrigger) && (isWhole || operationsBeforePressingEqualCount > 1)){ // Display is empty and decimal point was NOT pressed
         ui->Display->setText(butVal);
     }
 
     // Adding zeroes onto existing number after decimal place (converting to double after this would yield the same number as before)
-    // Example: static_cast<double>(25.5600) == 25.56
+    // Example: static_cast<double>(25.560) == 25.56
     // So treat it as a string
-    else if(butVal == "0" && decimalTrigger){
+    else if(butVal == "0" && !isWhole){
         QString newVal = displayVal + butVal;
         ui->Display->setText(newVal);
     }
@@ -66,21 +69,34 @@ void Calculator::NumPressed(){
         double dblNewVal = newVal.toDouble();
         ui->Display->setText(QString::number(dblNewVal, 'g', 16));
     }
+    operatorTrigger = false;
 }
 
 void Calculator::MathButtonPressed(){
     operationsInARowCount++;
-    decimalTrigger = false;
-
+    isWhole = true;
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
 
-    GetMathButton();
-    ui->Display->setText(butVal);
+    if(!operatorTrigger) operationsBeforePressingEqualCount++; // 2 + 2 + (change to -) 2 (press equal) would be 2 operations before pressing equal
+
+    if(operationsBeforePressingEqualCount > 1) {
+        EqualButton();
+        GetMathButton();
+    } else{
+        GetMathButton();
+        ui->Display->setText(butVal);
+    }
+     operatorTrigger = true;
+}
+bool Calculator::displayIsEmpty(){
+    QString displayVal = ui->Display->text();
+    return (displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0);
 }
 
 void Calculator::EqualButton(){
     operationsInARowCount = 0;
+    if (operationsBeforePressingEqualCount < 2) operationsBeforePressingEqualCount = 0;
     double solution = 0.0;
     QString displayVal = ui->Display->text();
     double dblDisplayVal = displayVal.toDouble();
@@ -100,14 +116,14 @@ void Calculator::EqualButton(){
 
     ClearOperatorTriggers();
 
-
-    decimalTrigger = (solution - static_cast<int>(solution) != 0);
+    isWhole = (solution - static_cast<int>(solution) == 0);
 
 }
 
 void Calculator::ChangeNumberSign(){
     QString displayVal = ui->Display->text();
     QRegExp reg("[-]?[0-9.]*");
+
     if(reg.exactMatch(displayVal)){
         double dblDisplayVal = displayVal.toDouble();
         double dblDisplayValSign = dblDisplayVal * -1;
@@ -118,6 +134,7 @@ void Calculator::ChangeNumberSign(){
 void Calculator::ClearButtonPressed(){
     ui->Display->setText("0");
     ClearAllTriggers();
+    operationsBeforePressingEqualCount = 0;
 }
 
 void Calculator::MemoryAdd(){
@@ -131,18 +148,17 @@ void Calculator::MemoryClear(){
 
 void Calculator::MemoryGet(){
     ui->Display->setText(QString::number(memory));
-    decimalTrigger = (memory - static_cast<int>(memory) != 0);
-
+    isWhole = (memory - static_cast<int>(memory) == 0);
 }
 
 void Calculator::PiPressed(){
     ui->Display->setText(QString::number(PI));
-    decimalTrigger = true;
+    isWhole = false;
 }
 
 void Calculator::EulersNumberPressed(){
     ui->Display->setText(QString::number(EULER));
-    decimalTrigger = true;
+    isWhole = false;
 }
 
 void Calculator::RandomNumberPressed(){
@@ -158,15 +174,17 @@ void Calculator::RandomNumberPressed(){
 void Calculator::DecimalPointPressed(){
     QString butVal = ".";
     QString displayVal = ui->Display->text();
+    double dblDisplayVal = displayVal.toDouble();
+    isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
 
-    if((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)){
-        ui->Display->setText("0.");
-        decimalTrigger = true;
-    } else if(!decimalTrigger){
+
+    if((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) ui->Display->setText("0.");
+    else if(isWhole){
         QString newVal = displayVal + butVal;
         ui->Display->setText(newVal);
-        decimalTrigger = true;
     }
+
+    isWhole = false;
 }
 
 void Calculator::ClearAllTriggers(){
@@ -174,7 +192,9 @@ void Calculator::ClearAllTriggers(){
     multTrigger = false;
     addTrigger = false;
     subTrigger = false;
-    decimalTrigger = false;
+    isWhole = true;
+    operatorTrigger = false;
+
 }
 
 void Calculator::ClearOperatorTriggers(){
@@ -202,4 +222,8 @@ void Calculator::GetMathButton(){
     } else {
         subTrigger = true;
     }
+}
+
+void Calculator::PressedOnEqualButtonDirectly(){
+    operationsBeforePressingEqualCount = 0;
 }

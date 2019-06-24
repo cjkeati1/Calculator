@@ -378,6 +378,9 @@ padding:5px
       <property name="text">
        <string>*</string>
       </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
     <item row="12" column="1">
