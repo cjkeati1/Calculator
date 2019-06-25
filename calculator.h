@@ -22,14 +22,16 @@ private:
     const double EULER = 2.718281828459045; // Constant for Euler's number
     double calcVal = 0.; // Used to store the number inside the display before a math operator is used
     double memory = 0.; // Used to store whatever value is inside the display when user wants to add memory (M+)
+    bool justPressedOperator = false;
+    int operationsInARowCount = 0;
+    int operationsBeforePressingEqualCount = 0;
     bool divTrigger = false;
     bool multTrigger = false;
     bool addTrigger = false;
     bool subTrigger = false;
     bool isWhole = true;
-    bool justPressedOperator = false;
-    int operationsInARowCount = 0;
-    int operationsBeforePressingEqualCount = 0;
+    bool justPressedEqual = false;
+
 
 private slots:
     void NumPressed();

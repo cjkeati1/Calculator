@@ -47,17 +47,12 @@ Calculator::~Calculator()
 }
 
 void Calculator::NumPressed(){
-
-
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
     QString displayVal = ui->Display->text();
     QRegExp reg("[-]?[0-9.]*");
 
-    double dblDisplayVal = displayVal.toDouble();
-    isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
-
-    if((displayIsEmpty() || justPressedOperator) && (isWhole || operationsBeforePressingEqualCount > 1)){ // Display is empty and decimal point was NOT pressed
+    if(((displayIsEmpty() || justPressedOperator) && (isWhole || operationsBeforePressingEqualCount > 1)) || (justPressedEqual)){ // Display is empty and decimal point was NOT pressed
         ui->Display->setText(butVal);
     }
 
@@ -74,6 +69,7 @@ void Calculator::NumPressed(){
         ui->Display->setText(QString::number(dblNewVal, 'g', 16));
     }
     justPressedOperator = false;
+    justPressedEqual = false;;
 }
 
 void Calculator::MathButtonPressed(){
@@ -95,7 +91,7 @@ void Calculator::MathButtonPressed(){
 }
 bool Calculator::displayIsEmpty(){
     QString displayVal = ui->Display->text();
-    return ((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && displayVal != "0.";
+    return ((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && isWhole;
 }
 
 void Calculator::EqualButton(){
@@ -182,7 +178,7 @@ void Calculator::DecimalPointPressed(){
     isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
 
 
-   if((displayIsEmpty() || justPressedOperator)) ui->Display->setText("0.");
+   if((displayIsEmpty() || justPressedOperator || justPressedEqual)) ui->Display->setText("0.");
 //   else if((isWhole && operationsBeforePressingEqualCount > 1)){
 //       calcVal =
 //   }
@@ -191,6 +187,7 @@ void Calculator::DecimalPointPressed(){
         ui->Display->setText(newVal);
     }
     justPressedOperator = false;
+    justPressedEqual = false;
     isWhole = false;
 }
 
@@ -201,6 +198,7 @@ void Calculator::ClearAllTriggers(){
     subTrigger = false;
     isWhole = true;
     justPressedOperator = false;
+    justPressedEqual = false;
 }
 
 void Calculator::ClearOperatorTriggers(){
@@ -232,4 +230,5 @@ void Calculator::GetMathButton(){
 
 void Calculator::PressedOnEqualButtonDirectly(){
     operationsBeforePressingEqualCount = 0;
+    justPressedEqual = true;
 }
