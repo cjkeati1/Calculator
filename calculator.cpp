@@ -48,12 +48,16 @@ Calculator::~Calculator()
 
 void Calculator::NumPressed(){
 
+
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
     QString displayVal = ui->Display->text();
     QRegExp reg("[-]?[0-9.]*");
 
-    if((displayIsEmpty() || operatorTrigger) && (isWhole || operationsBeforePressingEqualCount > 1)){ // Display is empty and decimal point was NOT pressed
+    double dblDisplayVal = displayVal.toDouble();
+    isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
+
+    if((displayIsEmpty() || justPressedOperator) && (isWhole || operationsBeforePressingEqualCount > 1)){ // Display is empty and decimal point was NOT pressed
         ui->Display->setText(butVal);
     }
 
@@ -69,7 +73,7 @@ void Calculator::NumPressed(){
         double dblNewVal = newVal.toDouble();
         ui->Display->setText(QString::number(dblNewVal, 'g', 16));
     }
-    operatorTrigger = false;
+    justPressedOperator = false;
 }
 
 void Calculator::MathButtonPressed(){
@@ -78,7 +82,7 @@ void Calculator::MathButtonPressed(){
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
 
-    if(!operatorTrigger) operationsBeforePressingEqualCount++; // 2 + 2 + (change to -) 2 (press equal) would be 2 operations before pressing equal
+    if(!justPressedOperator) operationsBeforePressingEqualCount++; // 2 + 2 + (change to -) 2 (press equal) would be 2 operations before pressing equal
 
     if(operationsBeforePressingEqualCount > 1) {
         EqualButton();
@@ -87,11 +91,11 @@ void Calculator::MathButtonPressed(){
         GetMathButton();
         ui->Display->setText(butVal);
     }
-     operatorTrigger = true;
+     justPressedOperator = true;
 }
 bool Calculator::displayIsEmpty(){
     QString displayVal = ui->Display->text();
-    return (displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0);
+    return ((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && displayVal != "0.";
 }
 
 void Calculator::EqualButton(){
@@ -178,12 +182,15 @@ void Calculator::DecimalPointPressed(){
     isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
 
 
-    if((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) ui->Display->setText("0.");
+   if((displayIsEmpty() || justPressedOperator)) ui->Display->setText("0.");
+//   else if((isWhole && operationsBeforePressingEqualCount > 1)){
+//       calcVal =
+//   }
     else if(isWhole){
         QString newVal = displayVal + butVal;
         ui->Display->setText(newVal);
     }
-
+    justPressedOperator = false;
     isWhole = false;
 }
 
@@ -193,8 +200,7 @@ void Calculator::ClearAllTriggers(){
     addTrigger = false;
     subTrigger = false;
     isWhole = true;
-    operatorTrigger = false;
-
+    justPressedOperator = false;
 }
 
 void Calculator::ClearOperatorTriggers(){

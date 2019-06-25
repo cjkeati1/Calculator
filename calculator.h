@@ -27,7 +27,7 @@ private:
     bool addTrigger = false;
     bool subTrigger = false;
     bool isWhole = true;
-    bool operatorTrigger = false;
+    bool justPressedOperator = false;
     int operationsInARowCount = 0;
     int operationsBeforePressingEqualCount = 0;
 
