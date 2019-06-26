@@ -66,7 +66,8 @@ void Calculator::NumPressed(){
     else { // After decimal but not 0
         QString newVal = displayVal + butVal;
         double dblNewVal = newVal.toDouble();
-        ui->Display->setText(QString::number(dblNewVal, 'g', 16));
+       ui->Display->setText(QString::number(dblNewVal, 'g', 16));
+        //ui->Display->setText(QString::number(dblNewVal));
     }
     justPressedOperator = false;
     justPressedEqual = false;;
@@ -78,16 +79,20 @@ void Calculator::MathButtonPressed(){
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
 
-    if(!justPressedOperator) operationsBeforePressingEqualCount++; // 2 + 2 + (change to -) 2 (press equal) would be 2 operations before pressing equal
+    if(!justPressedOperator) {
+        operationsBeforePressingEqualCount++;
+        }// 2 + 2 + (change to -) 2 (press equal) would be 2 operations before pressing equal
 
-    if(operationsBeforePressingEqualCount > 1) {
+    if(operationsBeforePressingEqualCount > 1) canChangeOperator = true;
+
+    if(operationsBeforePressingEqualCount > 1 && !justPressedOperator) {
         EqualButton();
         GetMathButton();
     } else{
         GetMathButton();
         ui->Display->setText(butVal);
     }
-     justPressedOperator = true;
+    justPressedOperator = true;
 }
 bool Calculator::displayIsEmpty(){
     QString displayVal = ui->Display->text();

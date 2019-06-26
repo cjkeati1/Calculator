@@ -31,6 +31,7 @@ private:
     bool subTrigger = false;
     bool isWhole = true;
     bool justPressedEqual = false;
+    bool canChangeOperator = false;
 
 
 private slots:
