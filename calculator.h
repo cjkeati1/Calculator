@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 
+
 namespace Ui {
 class Calculator;
+class Powers;
 }
 
 class Calculator : public QMainWindow
@@ -15,9 +17,10 @@ public:
 
     explicit Calculator(QWidget *parent = nullptr);
     ~Calculator();
+    Ui::Calculator *ui;
 
 private:
-    Ui::Calculator *ui;
+
     const double PI = 3.141592653589793; // Constant for pi
     const double EULER = 2.718281828459045; // Constant for Euler's number
     double calcVal = 0.; // Used to store the number inside the display before a math operator is used
@@ -30,7 +33,7 @@ private:
     bool addTrigger = false;
     bool subTrigger = false;
     bool isWhole = true;
-    bool justPressedEqual = false;
+    bool canReplaceCurrentDisplayNum = false;
     bool canChangeOperator = false;
 
 
@@ -51,8 +54,12 @@ private slots:
     void ClearOperatorTriggers();
     void GetMathButton();
     void PressedOnEqualButtonDirectly();
+    void PercentButton();
+    void Factorial();
     bool displayIsEmpty();
    // void UpdateCalcValue();
 };
+
+
 
 #endif // CALCULATOR_H

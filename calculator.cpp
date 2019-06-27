@@ -14,7 +14,7 @@ Calculator::Calculator(QWidget *parent) :
     ui->setupUi(this);
     ui->Display->setText(QString::number(calcVal));
 
-    srand((unsigned)time(NULL)); // Randomizes seed by returning the integer number of seconds from the system clock
+    srand((unsigned)time(nullptr)); // Randomizes seed by returning the integer number of seconds from the system clock
 
     QPushButton *numButtons[10];
     for (int i = 0; i < 10; i++) {
@@ -39,6 +39,8 @@ Calculator::Calculator(QWidget *parent) :
     connect(ui->Button_Euler, SIGNAL(released()), this, SLOT(EulersNumberPressed()));
     connect(ui->Button_Rand, SIGNAL(released()), this, SLOT(RandomNumberPressed()));
     connect(ui->Button_DecimalPoint, SIGNAL(released()), this, SLOT(DecimalPointPressed()));
+    connect(ui->Button_Percent, SIGNAL(released()), this, SLOT(PercentButton()));
+    connect(ui->Button_Factorial, SIGNAL(released()), this, SLOT(Factorial()));
 }
 
 Calculator::~Calculator()
@@ -52,7 +54,7 @@ void Calculator::NumPressed(){
     QString displayVal = ui->Display->text();
     QRegExp reg("[-]?[0-9.]*");
 
-    if(((displayIsEmpty() || justPressedOperator) && (isWhole || operationsBeforePressingEqualCount > 1)) || (justPressedEqual)){ // Display is empty and decimal point was NOT pressed
+    if(((displayIsEmpty() || justPressedOperator) && (isWhole || operationsBeforePressingEqualCount > 1)) || (canReplaceCurrentDisplayNum)){ // Display is empty and decimal point was NOT pressed
         ui->Display->setText(butVal);
     }
 
@@ -70,7 +72,7 @@ void Calculator::NumPressed(){
         //ui->Display->setText(QString::number(dblNewVal));
     }
     justPressedOperator = false;
-    justPressedEqual = false;;
+    canReplaceCurrentDisplayNum = false;;
 }
 
 void Calculator::MathButtonPressed(){
@@ -154,16 +156,22 @@ void Calculator::MemoryClear(){
 void Calculator::MemoryGet(){
     ui->Display->setText(QString::number(memory));
     isWhole = (memory - static_cast<int>(memory) == 0);
+    canReplaceCurrentDisplayNum = true;
 }
 
 void Calculator::PiPressed(){
     ui->Display->setText(QString::number(PI));
     isWhole = false;
+    canReplaceCurrentDisplayNum = true;
+    justPressedOperator = false;
+
 }
 
 void Calculator::EulersNumberPressed(){
     ui->Display->setText(QString::number(EULER));
     isWhole = false;
+    canReplaceCurrentDisplayNum = true;
+    justPressedOperator = false;
 }
 
 void Calculator::RandomNumberPressed(){
@@ -174,6 +182,8 @@ void Calculator::RandomNumberPressed(){
     double r = min + (rand() / ( RAND_MAX / (max - min) ) ) ;
 
     ui->Display->setText(QString::number(r));
+
+    justPressedOperator = false;
 }
 
 void Calculator::DecimalPointPressed(){
@@ -182,17 +192,14 @@ void Calculator::DecimalPointPressed(){
     double dblDisplayVal = displayVal.toDouble();
     isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
 
+   if((displayIsEmpty() || justPressedOperator || canReplaceCurrentDisplayNum)) ui->Display->setText("0.");
 
-   if((displayIsEmpty() || justPressedOperator || justPressedEqual)) ui->Display->setText("0.");
-//   else if((isWhole && operationsBeforePressingEqualCount > 1)){
-//       calcVal =
-//   }
-    else if(isWhole){
+    else if(isWhole){ // If the current number is whole, add the point on top of the current number
         QString newVal = displayVal + butVal;
         ui->Display->setText(newVal);
     }
     justPressedOperator = false;
-    justPressedEqual = false;
+    canReplaceCurrentDisplayNum = false;
     isWhole = false;
 }
 
@@ -203,7 +210,7 @@ void Calculator::ClearAllTriggers(){
     subTrigger = false;
     isWhole = true;
     justPressedOperator = false;
-    justPressedEqual = false;
+    canReplaceCurrentDisplayNum = false;
 }
 
 void Calculator::ClearOperatorTriggers(){
@@ -219,10 +226,10 @@ void Calculator::GetMathButton(){
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
 
-    if(operationsInARowCount > 1) ClearOperatorTriggers();
-    else calcVal = displayVal.toDouble();
+    if(operationsInARowCount > 1) ClearOperatorTriggers(); // If we're changing operator from one to another, clear triggers
+    else calcVal = displayVal.toDouble(); // If we're not changing, thereby meaning the display value is a number and not an operator symbol, then set calcVal equal to that
 
-    if(QString::compare(butVal, "/", Qt::CaseInsensitive) == 0){
+    if(QString::compare(butVal, "/", Qt::CaseInsensitive) == 0){ // Set the respective trigger to the selected operator to true
         divTrigger = true;
     } else if(QString::compare(butVal, "*", Qt::CaseInsensitive) == 0){
         multTrigger = true;
@@ -235,5 +242,48 @@ void Calculator::GetMathButton(){
 
 void Calculator::PressedOnEqualButtonDirectly(){
     operationsBeforePressingEqualCount = 0;
-    justPressedEqual = true;
+    canReplaceCurrentDisplayNum = true;
+}
+
+void Calculator::PercentButton(){
+    QString displayVal = ui->Display->text();
+    double dblDisplayVal = displayVal.toDouble();
+    double percentVal = dblDisplayVal * .01;
+    ui->Display->setText(QString::number(percentVal, 'g', 16));
+    canReplaceCurrentDisplayNum = true;
+    justPressedOperator = false;
+}
+
+void Calculator::Factorial(){
+    QString displayVal = ui->Display->text();
+    double dblDisplayVal = displayVal.toDouble();
+    isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
+
+    bool isZero = dblDisplayVal == 0 || dblDisplayVal == 0.0;
+
+    if (!isWhole || dblDisplayVal < 0 && !isZero){
+        ui->Display->setText("Error");
+
+    } else if (!isZero){
+        unsigned long long int factorial = 1;
+        while(dblDisplayVal > 0){
+            factorial *= dblDisplayVal;
+
+            if(factorial == 0){ // Overflow Occurred
+                ui->Display->setText("Error");
+                canReplaceCurrentDisplayNum = true;
+                justPressedOperator = false;
+
+                return;
+            }
+            dblDisplayVal--;
+        }
+
+        ui->Display->setText(QString::number(factorial, 'g', 16));
+
+    }
+
+    canReplaceCurrentDisplayNum = true;
+    justPressedOperator = false;
+
 }
