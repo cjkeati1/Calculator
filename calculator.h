@@ -14,17 +14,17 @@ class Calculator : public QMainWindow
     Q_OBJECT
 
 public:
-
     explicit Calculator(QWidget *parent = nullptr);
     ~Calculator();
     Ui::Calculator *ui;
+
 
 private:
 
     const double PI = 3.141592653589793; // Constant for pi
     const double EULER = 2.718281828459045; // Constant for Euler's number
     double calcVal = 0.; // Used to store the number inside the display before a math operator is used
-    double memory = 0.; // Used to store whatever value is inside the display when user wants to add memory (M+)
+    QString memory = "0"; // Used to store whatever value is inside the display when user wants to add memory (M+)
     bool justPressedOperator = false;
     int operationsInARowCount = 0;
     int operationsBeforePressingEqualCount = 0;
@@ -56,8 +56,15 @@ private slots:
     void PressedOnEqualButtonDirectly();
     void PercentButton();
     void Factorial();
+    void Squared();
+    void Cubed();
+//    void XToThePowerOfY();
+    void EToThePowerOfX();
+//    void SquareRoot();
+//    void CubedRoot();
+//    void YRootX();
     bool displayIsEmpty();
-   // void UpdateCalcValue();
+    QString deleteCommas();
 };
 
 
