@@ -35,6 +35,8 @@ private:
     bool isWhole = true;
     bool canReplaceCurrentDisplayNum = false;
     bool canChangeOperator = false;
+    bool isEnteringPowerY = false;
+    double baseX = 0.;
 
 
 private slots:
@@ -58,8 +60,9 @@ private slots:
     void Factorial();
     void Squared();
     void Cubed();
-//    void XToThePowerOfY();
+    void XToThePowerOfY();
     void EToThePowerOfX();
+    void TenToTheX();
 //    void SquareRoot();
 //    void CubedRoot();
 //    void YRootX();

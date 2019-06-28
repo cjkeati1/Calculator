@@ -9,14 +9,12 @@
 #include <QLocale>
 #include <string>
 
-Calculator::Calculator(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::Calculator)
+Calculator::Calculator(QWidget *parent) : QMainWindow(parent), ui(new Ui::Calculator)
 {
     ui->setupUi(this);
     ui->Display->setText(QString::number(calcVal));
 
-    srand((unsigned)time(nullptr)); // Randomizes seed by returning the integer number of seconds from the system clock
+    srand((unsigned)time(NULL)); // Randomizes seed by returning the integer number of seconds from the system clock
 
     QPushButton *numButtons[10];
     for (int i = 0; i < 10; i++) {
@@ -24,6 +22,8 @@ Calculator::Calculator(QWidget *parent) :
         numButtons[i] = Calculator::findChild<QPushButton *>(butName);
         connect(numButtons[i], SIGNAL(released()), this, SLOT(NumPressed()));
     }
+    // ui->Button_SquareRoot->setText(QStringLiteral("\u221A"));
+   //  ui->Button_Squared->setText("x<sup>2</sup>");
 
     // Connecting buttons to their respective methods
     connect(ui->Button_Add, SIGNAL(released()), this, SLOT(MathButtonPressed()));
@@ -46,7 +46,8 @@ Calculator::Calculator(QWidget *parent) :
     connect(ui->Button_Squared, SIGNAL(released()), this, SLOT(Squared()));
     connect(ui->Button_Cubed, SIGNAL(released()), this, SLOT(Cubed()));
     connect(ui->Button_EulerPower, SIGNAL(released()), this, SLOT(EToThePowerOfX()));
-
+    connect(ui->Button_TenPower, SIGNAL(released()), this, SLOT(TenToTheX()));
+    connect(ui->Button_XPowerY, SIGNAL(released()), this, SLOT(XToThePowerOfY()));
 }
 
 Calculator::~Calculator()
@@ -74,7 +75,7 @@ void Calculator::NumPressed(){
     else { // After decimal but not 0
         QString newVal = displayVal + butVal;
         double dblNewVal = newVal.toDouble();
-       ui->Display->setText(QString::number(dblNewVal, 'g', 16));
+        ui->Display->setText(QString::number(dblNewVal, 'g', 16));
         //ui->Display->setText(QString::number(dblNewVal));
     }
     justPressedOperator = false;
@@ -98,39 +99,58 @@ void Calculator::MathButtonPressed(){
         GetMathButton();
     } else{
         GetMathButton();
-        ui->Display->setText(butVal);
+      //  ui->Display->setText(butVal);
     }
     justPressedOperator = true;
 }
+
 bool Calculator::displayIsEmpty(){
     QString displayVal = ui->Display->text();
     return ((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && isWhole;
 }
 
 void Calculator::EqualButton(){
-    operationsInARowCount = 0;
-    if (operationsBeforePressingEqualCount < 2) operationsBeforePressingEqualCount = 0;
-    double solution = 0.0;
-    QString displayVal = deleteCommas();
-    double dblDisplayVal = displayVal.toDouble();
     const QLocale & cLocale = QLocale::system();
+    QString displayVal = deleteCommas();
+    if(!isEnteringPowerY){
+        operationsInARowCount = 0;
+        if (operationsBeforePressingEqualCount < 2) operationsBeforePressingEqualCount = 0;
+        double solution = 0.0;
+        double dblDisplayVal = displayVal.toDouble();
 
-    if(addTrigger || subTrigger || multTrigger || divTrigger){
-        if(addTrigger){
-            solution = calcVal + dblDisplayVal;
-        } else if(subTrigger){
-            solution = calcVal - dblDisplayVal;
-        } else if(multTrigger){
-            solution = calcVal * dblDisplayVal;
-        }  else{
-            solution = calcVal / dblDisplayVal;
+        if(addTrigger || subTrigger || multTrigger || divTrigger){
+            if(addTrigger){
+                solution = calcVal + dblDisplayVal;
+            } else if(subTrigger){
+                solution = calcVal - dblDisplayVal;
+            } else if(multTrigger){
+                solution = calcVal * dblDisplayVal;
+            }  else{
+                solution = calcVal / dblDisplayVal;
+            }
+            ui->Display->setText(QString::number(solution));
         }
-        ui->Display->setText(QString::number(solution));
+
+        ClearOperatorTriggers();
+
+        isWhole = (solution - static_cast<int>(solution) == 0);
+    } else {
+        double powerY = displayVal.toDouble();
+        double result = pow(baseX, powerY);
+        QString resultString = cLocale.toString(result);
+        if(resultString == "0" && baseX != 0.) ui->Display->setText("Error");
+        else ui->Display->setText(resultString);
+        isEnteringPowerY = false;
+        canReplaceCurrentDisplayNum = true;
+        baseX = 0;
     }
 
-    ClearOperatorTriggers();
 
-    isWhole = (solution - static_cast<int>(solution) == 0);
+    ui->Button_Divide->setDown(divTrigger);
+    ui->Button_Multiply->setDown(multTrigger);
+    ui->Button_Add->setDown(addTrigger);
+    ui->Button_Subtract->setDown(subTrigger);
+    ui->Button_XPowerY->setDown(isEnteringPowerY);
 
 }
 
@@ -139,14 +159,12 @@ void Calculator::ChangeNumberSign(){
 
     QRegExp reg("[-]?[0-9.]*");
 
-
     if(reg.exactMatch(displayVal)){
         const QLocale & cLocale = QLocale::system();
 
         double dblDisplayVal = displayVal.toDouble();
         double dblDisplayValSign = dblDisplayVal * -1;
         ui->Display->setText(cLocale.toString(dblDisplayValSign));
-
     }
 }
 
@@ -200,6 +218,7 @@ void Calculator::RandomNumberPressed(){
     ui->Display->setText(QString::number(r));
 
     justPressedOperator = false;
+    canReplaceCurrentDisplayNum = true;
 }
 
 void Calculator::DecimalPointPressed(){
@@ -208,11 +227,7 @@ void Calculator::DecimalPointPressed(){
      double dblDisplayVal = displayVal.toDouble();
      isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
 
-
     if((displayIsEmpty() || justPressedOperator || canReplaceCurrentDisplayNum)) ui->Display->setText("0.");
- //   else if((isWhole && operationsBeforePressingEqualCount > 1)){
- //       calcVal =
- //   }
      else if(isWhole){
          QString newVal = displayVal + butVal;
          ui->Display->setText(newVal);
@@ -228,8 +243,16 @@ void Calculator::ClearAllTriggers(){
     addTrigger = false;
     subTrigger = false;
     isWhole = true;
+    isEnteringPowerY = false;
     justPressedOperator = false;
     canReplaceCurrentDisplayNum = false;
+    isEnteringPowerY = false;
+    baseX = 0.;
+    ui->Button_Divide->setDown(divTrigger);
+    ui->Button_Multiply->setDown(multTrigger);
+    ui->Button_Add->setDown(addTrigger);
+    ui->Button_Subtract->setDown(subTrigger);
+    ui->Button_XPowerY->setDown(isEnteringPowerY);
 }
 
 void Calculator::ClearOperatorTriggers(){
@@ -237,6 +260,12 @@ void Calculator::ClearOperatorTriggers(){
     multTrigger = false;
     addTrigger = false;
     subTrigger = false;
+    isEnteringPowerY = false;
+    ui->Button_Divide->setDown(divTrigger);
+    ui->Button_Multiply->setDown(multTrigger);
+    ui->Button_Add->setDown(addTrigger);
+    ui->Button_Subtract->setDown(subTrigger);
+    ui->Button_XPowerY->setDown(isEnteringPowerY);
 }
 
 void Calculator::GetMathButton(){
@@ -259,11 +288,17 @@ void Calculator::GetMathButton(){
     } else {
         subTrigger = true;
     }
+
+    ui->Button_Divide->setDown(divTrigger);
+    ui->Button_Multiply->setDown(multTrigger);
+    ui->Button_Add->setDown(addTrigger);
+    ui->Button_Subtract->setDown(subTrigger);
 }
 
 void Calculator::PressedOnEqualButtonDirectly(){
     operationsBeforePressingEqualCount = 0;
     canReplaceCurrentDisplayNum = true;
+    operationsInARowCount = 0;
 }
 
 void Calculator::PercentButton(){
@@ -303,14 +338,11 @@ void Calculator::Factorial(){
             }
             dblDisplayVal--;
         }
-
         QString resultString = cLocale.toString(factorial);
         ui->Display->setText(resultString);
     }
-
     canReplaceCurrentDisplayNum = true;
     justPressedOperator = false;
-
 }
 
 void Calculator::Squared(){
@@ -367,11 +399,38 @@ void Calculator::EToThePowerOfX(){
     justPressedOperator = false;
 }
 
+void Calculator::TenToTheX(){
+    QString displayVal = deleteCommas();
+    double dblDisplayVal = displayVal.toDouble();
+    const QLocale & cLocale = QLocale::system();
+
+    double TenToThePowerOfX = pow(10, dblDisplayVal);
+    QString resultString = cLocale.toString(TenToThePowerOfX);
+    if(resultString == "0") ui->Display->setText("Error");
+    else ui->Display->setText(resultString);
+
+    canReplaceCurrentDisplayNum = true;
+    justPressedOperator = false;
+}
+
+void Calculator::XToThePowerOfY(){
+    operationsInARowCount++;
+    if(operationsInARowCount > 1) ClearOperatorTriggers(); // If we're changing operator from one to another, clear triggers
+
+    if(!isEnteringPowerY){
+        QString displayVal = deleteCommas();
+        baseX = displayVal.toDouble();
+        canReplaceCurrentDisplayNum = true;
+        isEnteringPowerY = true;       
+ }
+
+    ui->Button_XPowerY->setDown(isEnteringPowerY);
+}
+
 QString Calculator::deleteCommas(){
     QString displayVal = ui->Display->text();
     displayVal = displayVal.replace(",", "");
 
     return displayVal;
 }
-
 
