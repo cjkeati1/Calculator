@@ -59,6 +59,14 @@ Calculator::~Calculator()
     delete ui;
 }
 
+void Calculator::releaseButtons(){
+    ui->Button_Divide->setDown(false);
+    ui->Button_Multiply->setDown(false);
+    ui->Button_Add->setDown(false);
+    ui->Button_Subtract->setDown(false);
+    ui->Button_XPowerY->setDown(false);
+}
+
 void Calculator::NumPressed(){
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
@@ -68,6 +76,9 @@ void Calculator::NumPressed(){
     if(((displayIsEmpty() || justPressedOperator) && (isWhole || operationsBeforePressingEqualCount > 1)) || (canReplaceCurrentDisplayNum)){ // Display is empty and decimal point was NOT pressed
        if(isNegativeZero) ui->Display->setText("-" + butVal);
         else ui->Display->setText(butVal);
+
+        releaseButtons();
+
     }
 
     // Adding zeroes onto existing number after decimal place (converting to double after this would yield the same number as before)
@@ -135,9 +146,7 @@ void Calculator::EqualButton(){
             }
             ui->Display->setText(QString::number(solution));
         }
-
         ClearOperatorTriggers();
-
         isWhole = (solution - static_cast<int>(solution) == 0);
     } else {
         double powerY = displayVal.toDouble();
@@ -149,14 +158,7 @@ void Calculator::EqualButton(){
         canReplaceCurrentDisplayNum = true;
         baseX = 0;
     }
-
-
-    ui->Button_Divide->setDown(divTrigger);
-    ui->Button_Multiply->setDown(multTrigger);
-    ui->Button_Add->setDown(addTrigger);
-    ui->Button_Subtract->setDown(subTrigger);
-    ui->Button_XPowerY->setDown(isEnteringPowerY);
-
+    releaseButtons();
 }
 
 void Calculator::ChangeNumberSign(){
@@ -186,6 +188,8 @@ void Calculator::ChangeNumberSign(){
             ui->Display->setText(cLocale.toString(dblDisplayValSign));
         }
     }
+
+    releaseButtons();
 }
 
 void Calculator::ClearButtonPressed(){
@@ -261,6 +265,7 @@ void Calculator::DecimalPointPressed(){
     justPressedOperator = false;
     canReplaceCurrentDisplayNum = false;
     isWhole = false;
+    releaseButtons();
 }
 
 void Calculator::ClearAllTriggers(){
@@ -366,11 +371,9 @@ void Calculator::Factorial(){
         }
         QString resultString = cLocale.toString(factorial);
         ui->Display->setText(resultString);
-    } else {
+    } else { // If user is finding the factorial of 0
         ui->Display->setText("1");
-
-
-}
+    }
     canReplaceCurrentDisplayNum = true;
     justPressedOperator = false;
 }
@@ -455,6 +458,7 @@ void Calculator::XToThePowerOfY(){
  }
 
     ui->Button_XPowerY->setDown(isEnteringPowerY);
+    justPressedOperator = true;
 }
 
 void Calculator::SquareRoot(){
@@ -472,10 +476,8 @@ void Calculator::SquareRoot(){
         ui->Display->setText(resultString);
     }
 
-
         canReplaceCurrentDisplayNum = true;
         justPressedOperator = false;
-
 }
 
 void Calculator::CubeRoot(){
@@ -490,7 +492,6 @@ void Calculator::CubeRoot(){
 
     canReplaceCurrentDisplayNum = true;
     justPressedOperator = false;
-
 }
 
 void Calculator::OneOverX(){
@@ -507,11 +508,9 @@ void Calculator::OneOverX(){
     justPressedOperator = false;
 }
 
-
 QString Calculator::deleteCommas(){
     QString displayVal = ui->Display->text();
     displayVal = displayVal.replace(",", "");
 
     return displayVal;
 }
-

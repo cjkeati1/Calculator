@@ -65,6 +65,7 @@ private slots:
     void TenToTheX();
     void SquareRoot();
     void CubeRoot();
+    void releaseButtons();
     //void YRootX();
     void OneOverX();
     bool displayIsEmpty();
