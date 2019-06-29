@@ -52,7 +52,9 @@ Calculator::Calculator(QWidget *parent) : QMainWindow(parent), ui(new Ui::Calcul
     connect(ui->Button_SquareRoot, SIGNAL(released()), this, SLOT(SquareRoot()));
     connect(ui->Button_CubeRoot, SIGNAL(released()), this, SLOT(CubeRoot()));
     connect(ui->Button_OneOverX, SIGNAL(released()), this, SLOT(OneOverX ()));
+    connect(ui->Button_YRootX, SIGNAL(released()), this, SLOT(YRootX()));
 }
+
 
 Calculator::~Calculator()
 {
@@ -65,12 +67,14 @@ void Calculator::releaseButtons(){
     ui->Button_Add->setDown(false);
     ui->Button_Subtract->setDown(false);
     ui->Button_XPowerY->setDown(false);
+    ui->Button_YRootX->setDown(false);
 }
 
 void Calculator::NumPressed(){
+    const QLocale & cLocale = QLocale::system();
     QPushButton *button = static_cast<QPushButton *>(sender());
     QString butVal = button->text();
-    QString displayVal = ui->Display->text();
+    QString displayVal = deleteCommas();
     QRegExp reg("[-]?[0-9.]*");
     isNegativeZero = displayVal == "-0";
     if(((displayIsEmpty() || justPressedOperator) && (isWhole || operationsBeforePressingEqualCount > 1)) || (canReplaceCurrentDisplayNum)){ // Display is empty and decimal point was NOT pressed
@@ -78,7 +82,6 @@ void Calculator::NumPressed(){
         else ui->Display->setText(butVal);
 
         releaseButtons();
-
     }
 
     // Adding zeroes onto existing number after decimal place (converting to double after this would yield the same number as before)
@@ -88,10 +91,11 @@ void Calculator::NumPressed(){
         QString newVal = displayVal + butVal;
         ui->Display->setText(newVal);
     }
-    else { // After decimal but not 0
+    else {
         QString newVal = displayVal + butVal;
         double dblNewVal = newVal.toDouble();
-        ui->Display->setText(QString::number(dblNewVal, 'g', 16));
+       ui->Display->setText(QString::number(dblNewVal, 'g', 16));
+        //ui->Display->setText(cLocale.toString(dblNewVal));
         //ui->Display->setText(QString::number(dblNewVal));
     }
     justPressedOperator = false;
@@ -121,14 +125,19 @@ void Calculator::MathButtonPressed(){
 }
 
 bool Calculator::displayIsEmpty(){
-    QString displayVal = ui->Display->text();
+    QString displayVal = deleteCommas();
     return ((displayVal.toDouble() == 0) || (displayVal.toDouble() == 0.0)) && isWhole;
 }
 
 void Calculator::EqualButton(){
     const QLocale & cLocale = QLocale::system();
     QString displayVal = deleteCommas();
-    if(!isEnteringPowerY){
+//    if(calcVal == "Error"){
+//        releaseButtons();
+//        operationsInARowCount = 0;
+//        return;
+//    }
+    if(!isEnteringPowerY && !isEnteringBaseY){
         operationsInARowCount = 0;
         if (operationsBeforePressingEqualCount < 2) operationsBeforePressingEqualCount = 0;
         double solution = 0.0;
@@ -148,7 +157,7 @@ void Calculator::EqualButton(){
         }
         ClearOperatorTriggers();
         isWhole = (solution - static_cast<int>(solution) == 0);
-    } else {
+    } else if(isEnteringPowerY){
         double powerY = displayVal.toDouble();
         double result = pow(baseX, powerY);
         QString resultString = cLocale.toString(result);
@@ -157,6 +166,16 @@ void Calculator::EqualButton(){
         isEnteringPowerY = false;
         canReplaceCurrentDisplayNum = true;
         baseX = 0;
+    } else {
+        double baseY = displayVal.toDouble();
+        double result = pow(baseY, powerX);
+        QString resultString = cLocale.toString(result);
+        if(resultString == "0" && baseY != 0.) ui->Display->setText("Error");
+        else ui->Display->setText(resultString);
+        isEnteringBaseY = false;
+        canReplaceCurrentDisplayNum = true;
+        powerX = 0;
+
     }
     releaseButtons();
 }
@@ -167,7 +186,7 @@ void Calculator::ChangeNumberSign(){
 
     // If display value is 0 or we an operation is triggered (thus, we want to enter a new number)
     if(displayVal == "0" || justPressedOperator) ui->Display->setText("-0");
-    else if (dblDisplayVal == 0 && !canReplaceCurrentDisplayNum ) {
+    else if ((dblDisplayVal == 0 || displayVal.at(displayVal.length()-1) == "0") && !canReplaceCurrentDisplayNum ) { // If display value is 0 or ends with a 0 after decimal point, concatenate "-"
         if(displayVal.toStdString().find("-") == std::string::npos){ // If its a positive 0
             QString newNum = "-" + displayVal;
             ui->Display->setText(newNum);
@@ -215,6 +234,7 @@ void Calculator::MemoryGet(){
 
     isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
     canReplaceCurrentDisplayNum = true;
+    releaseButtons();
 }
 
 void Calculator::PiPressed(){
@@ -222,6 +242,7 @@ void Calculator::PiPressed(){
     isWhole = false;
     canReplaceCurrentDisplayNum = true;
     justPressedOperator = false;
+    releaseButtons();
 
 }
 
@@ -230,6 +251,7 @@ void Calculator::EulersNumberPressed(){
     isWhole = false;
     canReplaceCurrentDisplayNum = true;
     justPressedOperator = false;
+    releaseButtons();
 }
 
 void Calculator::RandomNumberPressed(){
@@ -243,6 +265,7 @@ void Calculator::RandomNumberPressed(){
 
     justPressedOperator = false;
     canReplaceCurrentDisplayNum = true;
+    releaseButtons();
 }
 
 void Calculator::DecimalPointPressed(){
@@ -461,6 +484,22 @@ void Calculator::XToThePowerOfY(){
     justPressedOperator = true;
 }
 
+void Calculator::YRootX(){
+    operationsInARowCount++;
+    if(operationsInARowCount > 1) ClearOperatorTriggers(); // If we're changing operator from one to another, clear triggers
+
+    if(!isEnteringBaseY){
+        QString displayVal = deleteCommas();
+        powerX = displayVal.toDouble();
+        canReplaceCurrentDisplayNum = true;
+        isEnteringBaseY = true;
+ }
+
+    ui->Button_YRootX->setDown(isEnteringBaseY);
+    justPressedOperator = true;
+}
+
+
 void Calculator::SquareRoot(){
     QString displayVal = deleteCommas();
     double dblDisplayVal = displayVal.toDouble();
@@ -499,10 +538,14 @@ void Calculator::OneOverX(){
     double dblDisplayVal = displayVal.toDouble();
     const QLocale & cLocale = QLocale::system();
 
-    double oneOverX = 1 / dblDisplayVal;
+    if(dblDisplayVal == 0) ui->Display->setText("Error");
+    else{
 
-    QString resultString = cLocale.toString(oneOverX);
-    ui->Display->setText(resultString);
+        double oneOverX = 1 / dblDisplayVal;
+
+        QString resultString = cLocale.toString(oneOverX);
+        ui->Display->setText(resultString);
+    }
 
     canReplaceCurrentDisplayNum = true;
     justPressedOperator = false;

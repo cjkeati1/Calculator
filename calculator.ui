@@ -1378,7 +1378,7 @@ padding:5px;
 </string>
       </property>
       <property name="text">
-       <string>yrt(x)</string>
+       <string>y^x</string>
       </property>
      </widget>
     </item>

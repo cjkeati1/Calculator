@@ -23,6 +23,7 @@ private:
     const double EULER = 2.718281828459045; // Constant for Euler's number
     double calcVal = 0.; // Used to store the number inside the display before a math operator is used
     double baseX = 0.;
+    double powerX = 0.;
     bool justPressedOperator = false;
     int operationsInARowCount = 0;
     int operationsBeforePressingEqualCount = 0;
@@ -34,6 +35,7 @@ private:
     bool canReplaceCurrentDisplayNum = false;
     bool canChangeOperator = false;
     bool isEnteringPowerY = false;
+    bool isEnteringBaseY = false;
     bool isNegativeZero = false;
 
 
@@ -66,7 +68,7 @@ private slots:
     void SquareRoot();
     void CubeRoot();
     void releaseButtons();
-    //void YRootX();
+    void YRootX();
     void OneOverX();
     bool displayIsEmpty();
 
