@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>703</width>
-    <height>354</height>
+    <width>818</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,180 +26,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="14" column="8">
-     <widget class="QPushButton" name="Button_3">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="Button_Cubed">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>x^3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="7">
-     <widget class="QPushButton" name="Button_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>2</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="6">
-     <widget class="QPushButton" name="Button_Clear">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(135, 135, 135);
-color: #ffffff;
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(185, 185, 185);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(165, 165, 165);
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>AC</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QPushButton" name="Button_SciNotation">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>EE</string>
-      </property>
-     </widget>
-    </item>
     <item row="14" column="2">
      <widget class="QPushButton" name="Button_EulerPower">
       <property name="font">
@@ -233,78 +59,8 @@ padding:5px;
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="Button_CubeRoot">
-      <property name="font">
-       <font>
-        <family>Segoe MDL2 Assets</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>cbrt(x)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="5">
-     <widget class="QPushButton" name="Button_Pi">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>π</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="7">
-     <widget class="QPushButton" name="Button_8">
+    <item row="14" column="9">
+     <widget class="QPushButton" name="Button_Add">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -316,398 +72,8 @@ padding:5px;
         <pointsize>10</pointsize>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>8</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="8">
-     <widget class="QPushButton" name="Button_9">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>9</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="5">
-     <widget class="QPushButton" name="Button_MemGet">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>M</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="5">
-     <widget class="QPushButton" name="Button_Ln">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>ln</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="8">
-     <widget class="QPushButton" name="Button_DecimalPoint">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>.</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="5">
-     <widget class="QPushButton" name="Button_Rand">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>Rand</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="4">
-     <widget class="QPushButton" name="Button_Tan">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>tan</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="3">
-     <widget class="QPushButton" name="Button_Tanh">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>tanh</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="6">
-     <widget class="QPushButton" name="Button_4">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>4</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="7">
-     <widget class="QPushButton" name="Button_Sign">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(135, 135, 135);
-color: #ffffff;
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(185, 185, 185);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(165, 165, 165);
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>+/-</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="6">
-     <widget class="QPushButton" name="Button_7">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>7</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="9">
-     <widget class="QPushButton" name="Button_Multiply">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
+      <property name="autoFillBackground">
+       <bool>false</bool>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
@@ -729,147 +95,7 @@ padding:5px;
 }</string>
       </property>
       <property name="text">
-       <string>*</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="5">
-     <widget class="QPushButton" name="Button_Euler">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>e</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="4">
-     <widget class="QPushButton" name="Button_MemAdd">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>M+</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="9">
-     <widget class="QLabel" name="Display">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>18</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(90, 90, 90);
-border:1px solid gray;
-color: #ffffff</string>
-      </property>
-      <property name="text">
-       <string>0.0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="8">
-     <widget class="QPushButton" name="Button_6">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>6</string>
+       <string>+</string>
       </property>
      </widget>
     </item>
@@ -912,8 +138,8 @@ padding:5px;
       </property>
      </widget>
     </item>
-    <item row="16" column="1">
-     <widget class="QPushButton" name="Button_Factorial">
+    <item row="14" column="0">
+     <widget class="QPushButton" name="Button_Logy">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -941,12 +167,316 @@ padding:5px;
 </string>
       </property>
       <property name="text">
-       <string>x!</string>
+       <string>logy</string>
       </property>
      </widget>
     </item>
-    <item row="16" column="9">
-     <widget class="QPushButton" name="Button_Equals">
+    <item row="14" column="5">
+     <widget class="QPushButton" name="Button_Pi">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>π</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="5">
+     <widget class="QPushButton" name="Button_Ln">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>ln</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="8">
+     <widget class="QPushButton" name="Button_Percent">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(135, 135, 135);
+color: #ffffff;
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(185, 185, 185);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(165, 165, 165);
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>%</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="3">
+     <widget class="QPushButton" name="Button_Tanh">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>tanh</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="10">
+     <widget class="QLabel" name="Display">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>18</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(90, 90, 90);
+border:1px solid gray;
+color: #ffffff</string>
+      </property>
+      <property name="text">
+       <string>0.0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="Button_CubeRoot">
+      <property name="font">
+       <font>
+        <family>Segoe MDL2 Assets</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>cbrt(x)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="6">
+     <widget class="QPushButton" name="Button_1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="Button_Squared">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>x^2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QPushButton" name="Button_XPowerY">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>x^y</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="9">
+     <widget class="QPushButton" name="Button_Multiply">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -978,46 +508,10 @@ padding:5px;
 }</string>
       </property>
       <property name="text">
-       <string>=</string>
+       <string>*</string>
       </property>
-     </widget>
-    </item>
-    <item row="4" column="4">
-     <widget class="QPushButton" name="Button_Sin">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>sin</string>
+      <property name="checkable">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -1094,78 +588,8 @@ padding:5px;
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="Button_Squared">
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>x^2</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="6">
-     <widget class="QPushButton" name="Button_1">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QPushButton" name="Button_MemClear">
+    <item row="1" column="5">
+     <widget class="QPushButton" name="Button_MemGet">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -1199,191 +623,18 @@ padding:5px;
 </string>
       </property>
       <property name="text">
-       <string>M-</string>
+       <string>M</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="9">
-     <widget class="QPushButton" name="Button_Subtract">
+    <item row="1" column="6">
+     <widget class="QPushButton" name="Button_Clear">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: #FF8C00;
-color: #ffffff;
-border:1px solid gray;
-padding:7px
-}
-
-QPushButton:pressed{
-background-color:rgb(255, 195, 125);
-border:1px solid black;
-padding:5px
-}
-
-QPushButton:hover:!pressed{
-background-color:rgb(255, 162, 55);
-padding:5px;
-}</string>
-      </property>
-      <property name="text">
-       <string>-</string>
-      </property>
-     </widget>
-    </item>
-    <item row="16" column="2">
-     <widget class="QPushButton" name="Button_TenPower">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>10^x</string>
-      </property>
-     </widget>
-    </item>
-    <item row="14" column="9">
-     <widget class="QPushButton" name="Button_Add">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: #FF8C00;
-color: #ffffff;
-border:1px solid gray;
-padding:7px
-}
-
-QPushButton:pressed{
-background-color:rgb(255, 195, 125);
-border:1px solid black;
-padding:5px
-}
-
-QPushButton:hover:!pressed{
-background-color:rgb(255, 162, 55);
-padding:5px;
-}</string>
-      </property>
-      <property name="text">
-       <string>+</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="7">
-     <widget class="QPushButton" name="Button_5">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color:rgb(212, 212, 212);
-border:1px solid gray;
-padding:7px
-}
-QPushButton:pressed{
-background-color:rgb(240, 240, 240);
-border:1px solid black;
-padding:5px
-}
-QPushButton:hover:!pressed{
-background-color:rgb(225, 225, 225);
-border:1px solid white;
-padding:5px;
-}
-</string>
-      </property>
-      <property name="text">
-       <string>5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QPushButton" name="Button_YRootX">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-background-color: rgb(66, 66, 66);
-color: #ffffff;
-border:1px solid gray;
-padding:7px;
-}
-QPushButton:pressed{
-background-color:rgb(95, 95, 95);
-border:1px solid black;
-padding:5px;
-}
-QPushButton:hover:!pressed{
-background-color:rgb(80, 80, 80);
-border:1px solid gray;
-padding:5px;
-}
-
-
-</string>
-      </property>
-      <property name="text">
-       <string>y^x</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="8">
-     <widget class="QPushButton" name="Button_Percent">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -1408,12 +659,141 @@ padding:5px;
 </string>
       </property>
       <property name="text">
-       <string>%</string>
+       <string>AC</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="3">
-     <widget class="QPushButton" name="Button_Log10">
+    <item row="4" column="0">
+     <widget class="QPushButton" name="Button_Log2">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>log2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4">
+     <widget class="QPushButton" name="Button_SciNotation">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>EE</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="8">
+     <widget class="QPushButton" name="Button_DecimalPoint">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>.</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="1">
+     <widget class="QPushButton" name="Button_OneOverX">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>1/x</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="4">
+     <widget class="QPushButton" name="Button_Sin">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -1447,7 +827,7 @@ padding:5px;
 </string>
       </property>
       <property name="text">
-       <string>log10</string>
+       <string>sin</string>
       </property>
      </widget>
     </item>
@@ -1490,6 +870,400 @@ padding:5px;
       </property>
      </widget>
     </item>
+    <item row="16" column="4">
+     <widget class="QPushButton" name="Button_Tan">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>tan</string>
+      </property>
+     </widget>
+    </item>
+    <item row="14" column="8">
+     <widget class="QPushButton" name="Button_3">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="8">
+     <widget class="QPushButton" name="Button_6">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="6">
+     <widget class="QPushButton" name="Button_4">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="7">
+     <widget class="QPushButton" name="Button_5">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="5">
+     <widget class="QPushButton" name="Button_Euler">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>e</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QPushButton" name="Button_YRootX">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>y^x</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="Button_Factorial_2">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>2nd</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QPushButton" name="Button_MemAdd">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>M+</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="7">
+     <widget class="QPushButton" name="Button_8">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="9">
+     <widget class="QPushButton" name="Button_Subtract">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: #FF8C00;
+color: #ffffff;
+border:1px solid gray;
+padding:7px
+}
+
+QPushButton:pressed{
+background-color:rgb(255, 195, 125);
+border:1px solid black;
+padding:5px
+}
+
+QPushButton:hover:!pressed{
+background-color:rgb(255, 162, 55);
+padding:5px;
+}</string>
+      </property>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
     <item row="16" column="6" colspan="2">
      <widget class="QPushButton" name="Button_0">
       <property name="sizePolicy">
@@ -1526,8 +1300,8 @@ padding:5px;
       </property>
      </widget>
     </item>
-    <item row="14" column="1">
-     <widget class="QPushButton" name="Button_OneOverX">
+    <item row="16" column="5">
+     <widget class="QPushButton" name="Button_Rand">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -1555,7 +1329,293 @@ padding:5px;
 </string>
       </property>
       <property name="text">
-       <string>1/x</string>
+       <string>Rand</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="Button_Cubed">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>x^3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QPushButton" name="Button_Log10">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>log10</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="Button_MemClear">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>M-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="1">
+     <widget class="QPushButton" name="Button_TenPower">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>10^x</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="6">
+     <widget class="QPushButton" name="Button_7">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="7">
+     <widget class="QPushButton" name="Button_Sign">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(135, 135, 135);
+color: #ffffff;
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(185, 185, 185);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(165, 165, 165);
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>+/-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="9">
+     <widget class="QPushButton" name="Button_Equals">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: #FF8C00;
+color: #ffffff;
+border:1px solid gray;
+padding:7px
+}
+
+QPushButton:pressed{
+background-color:rgb(255, 195, 125);
+border:1px solid black;
+padding:5px
+}
+
+QPushButton:hover:!pressed{
+background-color:rgb(255, 162, 55);
+padding:5px;
+}</string>
+      </property>
+      <property name="text">
+       <string>=</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="Button_Factorial">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>x!</string>
       </property>
      </widget>
     </item>
@@ -1596,8 +1656,86 @@ padding:5px;
       </property>
      </widget>
     </item>
-    <item row="4" column="2">
-     <widget class="QPushButton" name="Button_XPowerY">
+    <item row="14" column="7">
+     <widget class="QPushButton" name="Button_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="8">
+     <widget class="QPushButton" name="Button_9">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color:rgb(212, 212, 212);
+border:1px solid gray;
+padding:7px
+}
+QPushButton:pressed{
+background-color:rgb(240, 240, 240);
+border:1px solid black;
+padding:5px
+}
+QPushButton:hover:!pressed{
+background-color:rgb(225, 225, 225);
+border:1px solid white;
+padding:5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="0">
+     <widget class="QPushButton" name="Button_Rad">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -1625,7 +1763,46 @@ padding:5px;
 </string>
       </property>
       <property name="text">
-       <string>x^y</string>
+       <string>Rad</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="16" column="2">
+     <widget class="QPushButton" name="Button_TwoPower">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+background-color: rgb(66, 66, 66);
+color: #ffffff;
+border:1px solid gray;
+padding:7px;
+}
+QPushButton:pressed{
+background-color:rgb(95, 95, 95);
+border:1px solid black;
+padding:5px;
+}
+QPushButton:hover:!pressed{
+background-color:rgb(80, 80, 80);
+border:1px solid gray;
+padding:5px;
+}
+
+
+</string>
+      </property>
+      <property name="text">
+       <string>2^x</string>
       </property>
      </widget>
     </item>
@@ -1636,7 +1813,7 @@ padding:5px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>703</width>
+     <width>818</width>
      <height>21</height>
     </rect>
    </property>

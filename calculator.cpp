@@ -1,26 +1,29 @@
 #include "calculator.h"
+
+#include <QLocale>
+#include <QtMath>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+
 #include "math.h"
 #include "random"
 #include "time.h"
 #include "ui_calculator.h"
 
-#include <QLocale>
-#include <cstdlib>
-#include <ctime>
-#include <string>
-
-Calculator::Calculator(QWidget *parent)
+Calculator::Calculator(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::Calculator) {
   ui->setupUi(this);
   ui->Display->setText(QString::number(calcVal));
 
-  srand((unsigned)time(nullptr)); // Randomizes seed by returning the integer
-                                  // number of seconds from the system clock
+  srand((unsigned)time(nullptr));  // Randomizes seed by returning the integer
+                                   // number of seconds from the system clock
 
-  QPushButton *numButtons[10];
+  QPushButton* numButtons[10];
   for (int i = 0; i < 10; i++) {
     QString butName = "Button_" + QString::number(i);
-    numButtons[i] = Calculator::findChild<QPushButton *>(butName);
+    numButtons[i] = Calculator::findChild<QPushButton*>(butName);
     connect(numButtons[i], SIGNAL(released()), this, SLOT(NumPressed()));
   }
   // ui->Button_SquareRoot->setText(QStringLiteral("\u221A"));
@@ -63,9 +66,18 @@ Calculator::Calculator(QWidget *parent)
   connect(ui->Button_CubeRoot, SIGNAL(released()), this, SLOT(CubeRoot()));
   connect(ui->Button_OneOverX, SIGNAL(released()), this, SLOT(OneOverX()));
   connect(ui->Button_YRootX, SIGNAL(released()), this, SLOT(YRootX()));
+  connect(ui->Button_Rad, SIGNAL(released()), this, SLOT(RadOrDeg()));
+  connect(ui->Button_Sin, SIGNAL(released()), this, SLOT(TrigFunctions()));
+  connect(ui->Button_Cos, SIGNAL(released()), this, SLOT(TrigFunctions()));
+  connect(ui->Button_Tan, SIGNAL(released()), this, SLOT(TrigFunctions()));
+  connect(ui->Button_Sinh, SIGNAL(released()), this, SLOT(TrigFunctions()));
+  connect(ui->Button_Cosh, SIGNAL(released()), this, SLOT(TrigFunctions()));
+  connect(ui->Button_Tanh, SIGNAL(released()), this, SLOT(TrigFunctions()));
 }
 
-Calculator::~Calculator() { delete ui; }
+Calculator::~Calculator() {
+  delete ui;
+}
 
 void Calculator::releaseButtons() {
   ui->Button_Divide->setDown(false);
@@ -77,16 +89,16 @@ void Calculator::releaseButtons() {
 }
 
 void Calculator::NumPressed() {
-  const QLocale &cLocale = QLocale::system();
-  QPushButton *button = static_cast<QPushButton *>(sender());
+  const QLocale& cLocale = QLocale::system();
+  QPushButton* button = static_cast<QPushButton*>(sender());
   QString butVal = button->text();
   QString displayVal = deleteCommas();
   QRegExp reg("[-]?[0-9.]*");
   isNegativeZero = displayVal == "-0";
   if (((displayIsEmpty() || justPressedOperator) &&
        (isWhole || operationsBeforePressingEqualCount > 1)) ||
-      (canReplaceCurrentDisplayNum)) { // Display is empty and decimal point was
-                                       // NOT pressed
+      (canReplaceCurrentDisplayNum)) {  // Display is empty and decimal point
+                                        // was NOT pressed
     if (isNegativeZero)
       ui->Display->setText("-" + butVal);
     else
@@ -116,13 +128,13 @@ void Calculator::NumPressed() {
 void Calculator::MathButtonPressed() {
   operationsInARowCount++;
   isWhole = true;
-  QPushButton *button = static_cast<QPushButton *>(sender());
+  QPushButton* button = static_cast<QPushButton*>(sender());
   QString butVal = button->text();
 
   if (!justPressedOperator) {
     operationsBeforePressingEqualCount++;
-  } // 2 + 2 + (change to -) 2 (press equal) would be 2 operations before
-    // pressing equal
+  }  // 2 + 2 + (change to -) 2 (press equal) would be 2 operations before
+     // pressing equal
 
   if (operationsBeforePressingEqualCount > 1)
     canChangeOperator = true;
@@ -144,7 +156,7 @@ bool Calculator::displayIsEmpty() {
 }
 
 void Calculator::EqualButton() {
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
   QString displayVal = deleteCommas();
 
   if (!isEnteringPowerY && !isEnteringBaseY) {
@@ -208,33 +220,29 @@ void Calculator::ChangeNumberSign() {
     ui->Display->setText("-0");
   else if ((dblDisplayVal == 0 ||
             displayVal.at(displayVal.length() - 1) == "0") &&
-           !canReplaceCurrentDisplayNum) { // If display value is 0 or ends with
-                                           // a 0 after decimal point,
-                                           // concatenate "-"
+           !canReplaceCurrentDisplayNum) {  // If display value is 0 or ends
+                                            // with a 0 after decimal point,
+                                            // concatenate "-"
     if (displayVal.toStdString().find("-") ==
-        std::string::npos) { // If its a positive 0
+        std::string::npos) {  // If its a positive 0
       QString newNum = "-" + displayVal;
       ui->Display->setText(newNum);
-    } else { // If its a negative 0
+    } else {  // If its a negative 0
       QString newNum = displayVal.replace("-", "");
       ui->Display->setText(newNum);
     }
-  } else { // If display value is a non-zero number
+  } else {  // If display value is a non-zero number
     QRegExp reg("[-]?[0-9.]*");
     QString result;
     if (reg.exactMatch(displayVal)) {
-      const QLocale &cLocale = QLocale::system();
+      const QLocale& cLocale = QLocale::system();
       if (displayVal.toStdString().find("-") ==
-          std::string::npos) { // If its a positive 0
+          std::string::npos) {  // If its a positive 0
         result = "-" + displayVal;
       } else {
         result = displayVal.replace("-", "");
       }
       ui->Display->setText(result);
-      // double dblDisplayVal = displayVal.toDouble();
-
-      // double dblDisplayValSign = dblDisplayVal * -1;
-      // ui->Display->setText(cLocale.toString(dblDisplayValSign));
     }
   }
 
@@ -252,7 +260,9 @@ void Calculator::MemoryAdd() {
   memory = displayVal;
 }
 
-void Calculator::MemoryClear() { memory = "0"; }
+void Calculator::MemoryClear() {
+  memory = "0";
+}
 
 void Calculator::MemoryGet() {
   QString displayVal = deleteCommas();
@@ -352,22 +362,22 @@ void Calculator::ClearOperatorTriggers() {
 void Calculator::GetMathButton() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
-  QPushButton *button = static_cast<QPushButton *>(sender());
+  QPushButton* button = static_cast<QPushButton*>(sender());
   QString butVal = button->text();
 
   if (operationsInARowCount > 1)
-    ClearOperatorTriggers(); // If we're changing operator from one to another,
-                             // clear triggers
+    ClearOperatorTriggers();  // If we're changing operator from one to another,
+                              // clear triggers
   else
     calcVal =
-        displayVal.toDouble(); // If we're not changing, thereby meaning the
-                               // display value is a number and not an operator
-                               // symbol, then set calcVal equal to that
+        displayVal.toDouble();  // If we're not changing, thereby meaning the
+                                // display value is a number and not an operator
+                                // symbol, then set calcVal equal to that
 
   if (QString::compare(butVal, "/", Qt::CaseInsensitive) ==
-      0) { // Set the respective trigger to the selected operator to true
+      0) {  // Set the respective trigger to the selected operator to true
     divTrigger = true;
   } else if (QString::compare(butVal, "*", Qt::CaseInsensitive) == 0) {
     multTrigger = true;
@@ -392,7 +402,7 @@ void Calculator::PressedOnEqualButtonDirectly() {
 void Calculator::PercentButton() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
   double percentVal = dblDisplayVal * .01;
   QString resultString = cLocale.toString(percentVal);
   ui->Display->setText(resultString);
@@ -403,7 +413,7 @@ void Calculator::PercentButton() {
 void Calculator::Factorial() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
 
@@ -417,7 +427,7 @@ void Calculator::Factorial() {
     while (dblDisplayVal > 0) {
       factorial *= dblDisplayVal;
 
-      if (factorial == 0) { // Overflow Occurred
+      if (factorial == 0) {  // Overflow Occurred
         ui->Display->setText("Error");
         canReplaceCurrentDisplayNum = true;
         justPressedOperator = false;
@@ -428,7 +438,7 @@ void Calculator::Factorial() {
     }
     QString resultString = cLocale.toString(factorial);
     ui->Display->setText(resultString);
-  } else { // If user is finding the factorial of 0
+  } else {  // If user is finding the factorial of 0
     ui->Display->setText("1");
   }
   canReplaceCurrentDisplayNum = true;
@@ -438,7 +448,7 @@ void Calculator::Factorial() {
 void Calculator::Squared() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   bool wasZero = dblDisplayVal == 0 || dblDisplayVal == 0.0;
 
@@ -459,7 +469,7 @@ void Calculator::Squared() {
 void Calculator::Cubed() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   bool wasZero = dblDisplayVal == 0 || dblDisplayVal == 0.0;
 
@@ -479,7 +489,7 @@ void Calculator::Cubed() {
 void Calculator::EToThePowerOfX() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   double eulerToThePowerOfX = std::exp(dblDisplayVal);
   QString resultString = cLocale.toString(eulerToThePowerOfX);
@@ -495,7 +505,7 @@ void Calculator::EToThePowerOfX() {
 void Calculator::TenToTheX() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   double TenToThePowerOfX = pow(10, dblDisplayVal);
   QString resultString = cLocale.toString(TenToThePowerOfX);
@@ -511,8 +521,8 @@ void Calculator::TenToTheX() {
 void Calculator::XToThePowerOfY() {
   operationsInARowCount++;
   if (operationsInARowCount > 1)
-    ClearOperatorTriggers(); // If we're changing operator from one to another,
-                             // clear triggers
+    ClearOperatorTriggers();  // If we're changing operator from one to another,
+                              // clear triggers
 
   if (!isEnteringPowerY) {
     QString displayVal = deleteCommas();
@@ -527,8 +537,8 @@ void Calculator::XToThePowerOfY() {
 void Calculator::YRootX() {
   operationsInARowCount++;
   if (operationsInARowCount > 1)
-    ClearOperatorTriggers(); // If we're changing operator from one to another,
-                             // clear triggers
+    ClearOperatorTriggers();  // If we're changing operator from one to another,
+                              // clear triggers
 
   if (!isEnteringBaseY) {
     QString displayVal = deleteCommas();
@@ -543,7 +553,7 @@ void Calculator::YRootX() {
 void Calculator::SquareRoot() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   if (dblDisplayVal < 0) {
     ui->Display->setText("Error");
@@ -561,7 +571,7 @@ void Calculator::SquareRoot() {
 void Calculator::CubeRoot() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   double squareRoot = cbrt(dblDisplayVal);
 
@@ -575,7 +585,7 @@ void Calculator::CubeRoot() {
 void Calculator::OneOverX() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
-  const QLocale &cLocale = QLocale::system();
+  const QLocale& cLocale = QLocale::system();
 
   if (dblDisplayVal == 0)
     ui->Display->setText("Error");
@@ -585,6 +595,51 @@ void Calculator::OneOverX() {
     QString resultString = cLocale.toString(oneOverX);
     ui->Display->setText(resultString);
   }
+  canReplaceCurrentDisplayNum = true;
+  justPressedOperator = false;
+}
+
+void Calculator::RadOrDeg() {
+  // ui->Button_Rad->setDown(isRadiansMode);
+  isRadiansMode = !isRadiansMode;
+
+  ui->Button_Rad->setText((isRadiansMode) ? "Deg" : "Rad");
+
+  ui->Button_Rad->setChecked(isRadiansMode);
+
+  // Temp
+}
+void Calculator::TrigFunctions() {
+  QString displayVal = deleteCommas();
+  double dblDisplayVal = displayVal.toDouble();
+  const QLocale& cLocale = QLocale::system();
+  QPushButton* button = static_cast<QPushButton*>(sender());
+  QString butVal = button->text();
+  double result;
+
+  if (QString::compare(butVal, "sin", Qt::CaseInsensitive) == 0) {
+    result = (isRadiansMode) ? qSin(dblDisplayVal)
+                             : qSin(qDegreesToRadians(dblDisplayVal));
+  } else if (QString::compare(butVal, "cos", Qt::CaseInsensitive) == 0) {
+    result = (isRadiansMode) ? qCos(dblDisplayVal)
+                             : qCos(qDegreesToRadians(dblDisplayVal));
+  } else if (QString::compare(butVal, "tan", Qt::CaseInsensitive) == 0) {
+    result = (isRadiansMode) ? qTan(dblDisplayVal)
+                             : qTan(qDegreesToRadians(dblDisplayVal));
+  } else if (QString::compare(butVal, "sinh", Qt::CaseInsensitive) == 0) {
+    result = (isRadiansMode) ? sinh(dblDisplayVal)
+                             : sinh(qDegreesToRadians(dblDisplayVal));
+  } else if (QString::compare(butVal, "cosh", Qt::CaseInsensitive) == 0) {
+    result = (isRadiansMode) ? cosh(dblDisplayVal)
+                             : cosh(qDegreesToRadians(dblDisplayVal));
+  } else if (QString::compare(butVal, "tanh", Qt::CaseInsensitive) == 0) {
+    result = (isRadiansMode) ? tanh(dblDisplayVal)
+                             : tanh(qDegreesToRadians(dblDisplayVal));
+  }
+
+  QString resultString = cLocale.toString(result);
+  ui->Display->setText(resultString);
+
   canReplaceCurrentDisplayNum = true;
   justPressedOperator = false;
 }

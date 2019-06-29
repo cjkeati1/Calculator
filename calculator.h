@@ -37,6 +37,7 @@ private:
   bool isEnteringPowerY = false;
   bool isEnteringBaseY = false;
   bool isNegativeZero = false;
+  bool isRadiansMode = false;
 
 private slots:
   void NumPressed();
@@ -67,6 +68,15 @@ private slots:
   void releaseButtons();
   void YRootX();
   void OneOverX();
+  void RadOrDeg();
+  void TrigFunctions();
+//  void Sin();
+//  void Cos();
+//  void Tan();
+//  void Sinh();
+//  void Cosh();
+//  void Tanh();
+
   bool displayIsEmpty();
 
   QString deleteCommas();
