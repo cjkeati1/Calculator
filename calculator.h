@@ -3,10 +3,8 @@
 
 #include <QMainWindow>
 
-
 namespace Ui {
 class Calculator;
-class Powers;
 }
 
 class Calculator : public QMainWindow
@@ -20,11 +18,11 @@ public:
 
 
 private:
-
+    QString memory = "0"; // Used to store whatever value is inside the display when user wants to add memory (M+)
     const double PI = 3.141592653589793; // Constant for pi
     const double EULER = 2.718281828459045; // Constant for Euler's number
     double calcVal = 0.; // Used to store the number inside the display before a math operator is used
-    QString memory = "0"; // Used to store whatever value is inside the display when user wants to add memory (M+)
+    double baseX = 0.;
     bool justPressedOperator = false;
     int operationsInARowCount = 0;
     int operationsBeforePressingEqualCount = 0;
@@ -36,7 +34,9 @@ private:
     bool canReplaceCurrentDisplayNum = false;
     bool canChangeOperator = false;
     bool isEnteringPowerY = false;
-    double baseX = 0.;
+    bool isNegativeZero = false;
+
+
 
 
 private slots:
@@ -63,10 +63,12 @@ private slots:
     void XToThePowerOfY();
     void EToThePowerOfX();
     void TenToTheX();
-//    void SquareRoot();
-//    void CubedRoot();
-//    void YRootX();
+    void SquareRoot();
+    void CubeRoot();
+    //void YRootX();
+    void OneOverX();
     bool displayIsEmpty();
+
     QString deleteCommas();
 };
 
