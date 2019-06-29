@@ -10,18 +10,17 @@ class Calculator;
 class Calculator : public QMainWindow {
   Q_OBJECT
 
-public:
-  explicit Calculator(QWidget *parent = nullptr);
+ public:
+  explicit Calculator(QWidget* parent = nullptr);
   ~Calculator();
-  Ui::Calculator *ui;
+  Ui::Calculator* ui;
 
-private:
-  QString memory = "0"; // Used to store whatever value is inside the display
-                        // when user wants to add memory (M+)
-  const double PI = 3.141592653589793;    // Constant for pi
-  const double EULER = 2.718281828459045; // Constant for Euler's number
-  double calcVal = 0.; // Used to store the number inside the display before a
-                       // math operator is used
+ private:
+  QString memory = "0";  // Used to store whatever value is inside the display
+                         // when user wants to add memory (M+)
+
+  double calcVal = 0.;  // Used to store the number inside the display before a
+                        // math operator is used
   double baseX = 0.;
   double powerX = 0.;
   bool justPressedOperator = false;
@@ -39,7 +38,7 @@ private:
   bool isNegativeZero = false;
   bool isRadiansMode = false;
 
-private slots:
+ private slots:
   void NumPressed();
   void MathButtonPressed();
   void EqualButton();
@@ -62,24 +61,20 @@ private slots:
   void Cubed();
   void XToThePowerOfY();
   void EToThePowerOfX();
-  void TenToTheX();
+  void ToTheXPower();
   void SquareRoot();
   void CubeRoot();
   void releaseButtons();
   void YRootX();
   void OneOverX();
   void RadOrDeg();
-  void TrigFunctions();
-//  void Sin();
-//  void Cos();
-//  void Tan();
-//  void Sinh();
-//  void Cosh();
-//  void Tanh();
+  void TrigAndHyperbFunctions();
+  void NaturalLog();
+  void Log();
 
   bool displayIsEmpty();
 
   QString deleteCommas();
 };
 
-#endif // CALCULATOR_H
+#endif  // CALCULATOR_H

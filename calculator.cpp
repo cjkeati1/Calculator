@@ -60,19 +60,23 @@ Calculator::Calculator(QWidget* parent)
   connect(ui->Button_Cubed, SIGNAL(released()), this, SLOT(Cubed()));
   connect(ui->Button_EulerPower, SIGNAL(released()), this,
           SLOT(EToThePowerOfX()));
-  connect(ui->Button_TenPower, SIGNAL(released()), this, SLOT(TenToTheX()));
+  connect(ui->Button_TenPower, SIGNAL(released()), this, SLOT(ToTheXPower()));
+  connect(ui->Button_TwoPower, SIGNAL(released()), this, SLOT(ToTheXPower()));
   connect(ui->Button_XPowerY, SIGNAL(released()), this, SLOT(XToThePowerOfY()));
   connect(ui->Button_SquareRoot, SIGNAL(released()), this, SLOT(SquareRoot()));
   connect(ui->Button_CubeRoot, SIGNAL(released()), this, SLOT(CubeRoot()));
   connect(ui->Button_OneOverX, SIGNAL(released()), this, SLOT(OneOverX()));
   connect(ui->Button_YRootX, SIGNAL(released()), this, SLOT(YRootX()));
   connect(ui->Button_Rad, SIGNAL(released()), this, SLOT(RadOrDeg()));
-  connect(ui->Button_Sin, SIGNAL(released()), this, SLOT(TrigFunctions()));
-  connect(ui->Button_Cos, SIGNAL(released()), this, SLOT(TrigFunctions()));
-  connect(ui->Button_Tan, SIGNAL(released()), this, SLOT(TrigFunctions()));
-  connect(ui->Button_Sinh, SIGNAL(released()), this, SLOT(TrigFunctions()));
-  connect(ui->Button_Cosh, SIGNAL(released()), this, SLOT(TrigFunctions()));
-  connect(ui->Button_Tanh, SIGNAL(released()), this, SLOT(TrigFunctions()));
+  connect(ui->Button_Sin, SIGNAL(released()), this, SLOT(TrigAndHyperbFunctions()));
+  connect(ui->Button_Cos, SIGNAL(released()), this, SLOT(TrigAndHyperbFunctions()));
+  connect(ui->Button_Tan, SIGNAL(released()), this, SLOT(TrigAndHyperbFunctions()));
+  connect(ui->Button_Sinh, SIGNAL(released()), this, SLOT(TrigAndHyperbFunctions()));
+  connect(ui->Button_Cosh, SIGNAL(released()), this, SLOT(TrigAndHyperbFunctions()));
+  connect(ui->Button_Tanh, SIGNAL(released()), this, SLOT(TrigAndHyperbFunctions()));
+  connect(ui->Button_Ln, SIGNAL(released()), this, SLOT(NaturalLog()));
+  connect(ui->Button_Log10, SIGNAL(released()), this, SLOT(Log()));
+  connect(ui->Button_Log2, SIGNAL(released()), this, SLOT(Log()));
 }
 
 Calculator::~Calculator() {
@@ -198,6 +202,7 @@ void Calculator::EqualButton() {
   } else {
     double baseY = displayVal.toDouble();
     double result = pow(baseY, powerX);
+
     QString resultString = cLocale.toString(result);
     if (resultString == "0" && baseY != 0.)
       ui->Display->setText("Error");
@@ -276,7 +281,7 @@ void Calculator::MemoryGet() {
 }
 
 void Calculator::PiPressed() {
-  ui->Display->setText(QString::number(PI));
+  ui->Display->setText(QString::number(M_PI));
   isWhole = false;
   canReplaceCurrentDisplayNum = true;
   justPressedOperator = false;
@@ -284,7 +289,7 @@ void Calculator::PiPressed() {
 }
 
 void Calculator::EulersNumberPressed() {
-  ui->Display->setText(QString::number(EULER));
+  ui->Display->setText(QString::number(M_E));
   isWhole = false;
   canReplaceCurrentDisplayNum = true;
   justPressedOperator = false;
@@ -337,13 +342,10 @@ void Calculator::ClearAllTriggers() {
   isEnteringPowerY = false;
   justPressedOperator = false;
   canReplaceCurrentDisplayNum = false;
-  isEnteringPowerY = false;
+  isEnteringBaseY = false;
   baseX = 0.;
-  ui->Button_Divide->setDown(divTrigger);
-  ui->Button_Multiply->setDown(multTrigger);
-  ui->Button_Add->setDown(addTrigger);
-  ui->Button_Subtract->setDown(subTrigger);
-  ui->Button_XPowerY->setDown(isEnteringPowerY);
+
+  releaseButtons();
 }
 
 void Calculator::ClearOperatorTriggers() {
@@ -415,6 +417,9 @@ void Calculator::Factorial() {
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
 
+  if (displayVal == "Error")
+    return;
+
   isWhole = (dblDisplayVal - static_cast<int>(dblDisplayVal) == 0);
 
   bool isZero = dblDisplayVal == 0 || dblDisplayVal == 0.0;
@@ -450,6 +455,9 @@ void Calculator::Squared() {
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
 
+  if (displayVal == "Error")
+    return;
+
   bool wasZero = dblDisplayVal == 0 || dblDisplayVal == 0.0;
 
   double square = dblDisplayVal;
@@ -459,7 +467,10 @@ void Calculator::Squared() {
     ui->Display->setText("Error");
   else {
     QString resultString = cLocale.toString(square);
-    ui->Display->setText(resultString);
+    if (resultString == "inf")
+      ui->Display->setText("Error");
+    else
+      ui->Display->setText(resultString);
   }
 
   canReplaceCurrentDisplayNum = true;
@@ -470,6 +481,9 @@ void Calculator::Cubed() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
+
+  if (displayVal == "Error")
+    return;
 
   bool wasZero = dblDisplayVal == 0 || dblDisplayVal == 0.0;
 
@@ -491,9 +505,12 @@ void Calculator::EToThePowerOfX() {
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
 
+  if (displayVal == "Error")
+    return;
+
   double eulerToThePowerOfX = std::exp(dblDisplayVal);
   QString resultString = cLocale.toString(eulerToThePowerOfX);
-  if (resultString == "0")
+  if (resultString == "0" || resultString == "inf")
     ui->Display->setText("Error");
   else
     ui->Display->setText(resultString);
@@ -502,14 +519,19 @@ void Calculator::EToThePowerOfX() {
   justPressedOperator = false;
 }
 
-void Calculator::TenToTheX() {
+void Calculator::ToTheXPower() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
+  QPushButton* button = static_cast<QPushButton*>(sender());
+  QString butVal = button->text();
 
-  double TenToThePowerOfX = pow(10, dblDisplayVal);
-  QString resultString = cLocale.toString(TenToThePowerOfX);
-  if (resultString == "0")
+  if (displayVal == "Error")
+    return;
+
+  double ToTheXPower = pow((butVal == "10^x") ? 10 : 2, dblDisplayVal);
+  QString resultString = cLocale.toString(ToTheXPower);
+  if (resultString == "0" || resultString == "inf")
     ui->Display->setText("Error");
   else
     ui->Display->setText(resultString);
@@ -555,6 +577,9 @@ void Calculator::SquareRoot() {
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
 
+  if (displayVal == "Error")
+    return;
+
   if (dblDisplayVal < 0) {
     ui->Display->setText("Error");
   } else {
@@ -572,6 +597,9 @@ void Calculator::CubeRoot() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
+
+  if (displayVal == "Error")
+    return;
 
   double squareRoot = cbrt(dblDisplayVal);
 
@@ -604,18 +632,17 @@ void Calculator::RadOrDeg() {
   isRadiansMode = !isRadiansMode;
 
   ui->Button_Rad->setText((isRadiansMode) ? "Deg" : "Rad");
-
-  ui->Button_Rad->setChecked(isRadiansMode);
-
-  // Temp
 }
-void Calculator::TrigFunctions() {
+void Calculator::TrigAndHyperbFunctions() {
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
   QPushButton* button = static_cast<QPushButton*>(sender());
   QString butVal = button->text();
   double result;
+
+  if (displayVal == "Error")
+    return;
 
   if (QString::compare(butVal, "sin", Qt::CaseInsensitive) == 0) {
     result = (isRadiansMode) ? qSin(dblDisplayVal)
@@ -626,20 +653,61 @@ void Calculator::TrigFunctions() {
   } else if (QString::compare(butVal, "tan", Qt::CaseInsensitive) == 0) {
     result = (isRadiansMode) ? qTan(dblDisplayVal)
                              : qTan(qDegreesToRadians(dblDisplayVal));
-  } else if (QString::compare(butVal, "sinh", Qt::CaseInsensitive) == 0) {
-    result = (isRadiansMode) ? sinh(dblDisplayVal)
-                             : sinh(qDegreesToRadians(dblDisplayVal));
+  } else if (QString::compare(butVal, "sinh", Qt::CaseInsensitive) == 0) { // Not periodic functions so rad vs. deg doesn't matter
+    result = sinh(dblDisplayVal);
   } else if (QString::compare(butVal, "cosh", Qt::CaseInsensitive) == 0) {
-    result = (isRadiansMode) ? cosh(dblDisplayVal)
-                             : cosh(qDegreesToRadians(dblDisplayVal));
+    result = cosh(dblDisplayVal);
   } else if (QString::compare(butVal, "tanh", Qt::CaseInsensitive) == 0) {
-    result = (isRadiansMode) ? tanh(dblDisplayVal)
-                             : tanh(qDegreesToRadians(dblDisplayVal));
+    result = tanh(dblDisplayVal);
   }
 
   QString resultString = cLocale.toString(result);
   ui->Display->setText(resultString);
 
+  canReplaceCurrentDisplayNum = true;
+  justPressedOperator = false;
+}
+
+void Calculator::NaturalLog() {
+  QString displayVal = deleteCommas();
+  double dblDisplayVal = displayVal.toDouble();
+  const QLocale& cLocale = QLocale::system();
+
+  if (dblDisplayVal == 0)
+    ui->Display->setText("Error");
+  else {
+    double naturalLog = qLn(dblDisplayVal);
+
+    QString resultString = cLocale.toString(naturalLog);
+    if (resultString == "nan")
+      ui->Display->setText("Error");
+    else
+      ui->Display->setText(resultString);
+  }
+  canReplaceCurrentDisplayNum = true;
+  justPressedOperator = false;
+}
+
+void Calculator::Log() {
+  QString displayVal = deleteCommas();
+  double dblDisplayVal = displayVal.toDouble();
+  const QLocale& cLocale = QLocale::system();
+  QPushButton* button = static_cast<QPushButton*>(sender());
+  QString butVal = button->text();
+  double result;
+
+  if (dblDisplayVal == 0)
+    ui->Display->setText("Error");
+  else {
+    double naturalLog =
+        (butVal == "log10") ? log10(dblDisplayVal) : log2(dblDisplayVal);
+
+    QString resultString = cLocale.toString(naturalLog);
+    if (resultString == "nan")
+      ui->Display->setText("Error");
+    else
+      ui->Display->setText(resultString);
+  }
   canReplaceCurrentDisplayNum = true;
   justPressedOperator = false;
 }
