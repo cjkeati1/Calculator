@@ -27,11 +27,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        factorial.cpp \
         main.cpp \
-        calculator.cpp
+        calculator.cpp \
+        trigandhyperbolic.cpp
 
 HEADERS += \
-        calculator.h
+        calculator.h \
+        factorial.h \
+        trigandhyperbolic.h
 
 FORMS += \
         calculator.ui

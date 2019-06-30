@@ -17,26 +17,27 @@ class Calculator : public QMainWindow {
 
  private:
   QString memory = "0";  // Used to store whatever value is inside the display
-                         // when user wants to add memory (M+)
 
-  double calcVal = 0.;  // Used to store the number inside the display before a
-                        // math operator is used
-  double baseX = 0.;
-  double powerX = 0.;
-  bool justPressedOperator = false;
-  int operationsInARowCount = 0;
-  int operationsBeforePressingEqualCount = 0;
   bool divTrigger = false;
   bool multTrigger = false;
   bool addTrigger = false;
   bool subTrigger = false;
-  bool isWhole = true;
-  bool canReplaceCurrentDisplayNum = false;
+
+ protected:
   bool canChangeOperator = false;
   bool isEnteringPowerY = false;
   bool isEnteringBaseY = false;
   bool isNegativeZero = false;
   bool isRadiansMode = false;
+  bool isWhole = true;
+  bool justPressedOperator = false;
+  double baseX = 0.;
+  double powerX = 0.;
+  double calcVal = 0.;
+  bool canReplaceCurrentDisplayNum = false;
+  int operationsInARowCount = 0;
+  int operationsBeforePressingEqualCount = 0;
+  QString deleteCommas();
 
  private slots:
   void NumPressed();
@@ -57,13 +58,11 @@ class Calculator : public QMainWindow {
   void PressedOnEqualButtonDirectly();
   void PercentButton();
   void Factorial();
-  void Squared();
-  void Cubed();
+  void SquaredOrCubed();
   void XToThePowerOfY();
   void EToThePowerOfX();
   void ToTheXPower();
-  void SquareRoot();
-  void CubeRoot();
+  void SquareOrCubeRoot();
   void releaseButtons();
   void YRootX();
   void OneOverX();
@@ -74,7 +73,7 @@ class Calculator : public QMainWindow {
 
   bool displayIsEmpty();
 
-  QString deleteCommas();
+
 };
 
 #endif  // CALCULATOR_H
