@@ -31,9 +31,13 @@ class Calculator : public QMainWindow {
   bool isRadiansMode = false;
   bool isWhole = true;
   bool justPressedOperator = false;
+  bool isEnteringEE = false;
+  bool isEnteringLogBaseY = false;
   double baseX = 0.;
   double powerX = 0.;
   double calcVal = 0.;
+  double sciNotationBase = 0.;
+  double logExponentX = 0.;
   bool canReplaceCurrentDisplayNum = false;
   int operationsInARowCount = 0;
   int operationsBeforePressingEqualCount = 0;
@@ -59,21 +63,20 @@ class Calculator : public QMainWindow {
   void PercentButton();
   void Factorial();
   void SquaredOrCubed();
-  void XToThePowerOfY();
+  void Powers();
   void EToThePowerOfX();
   void ToTheXPower();
   void SquareOrCubeRoot();
   void releaseButtons();
-  void YRootX();
   void OneOverX();
   void RadOrDeg();
   void TrigAndHyperbFunctions();
   void NaturalLog();
   void Log();
+  void LogBaseY();
+  void EE();
 
   bool displayIsEmpty();
-
-
 };
 
 #endif  // CALCULATOR_H

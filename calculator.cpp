@@ -67,13 +67,13 @@ Calculator::Calculator(QWidget* parent)
           SLOT(EToThePowerOfX()));
   connect(ui->Button_TenPower, SIGNAL(released()), this, SLOT(ToTheXPower()));
   connect(ui->Button_TwoPower, SIGNAL(released()), this, SLOT(ToTheXPower()));
-  connect(ui->Button_XPowerY, SIGNAL(released()), this, SLOT(XToThePowerOfY()));
+  connect(ui->Button_XPowerY, SIGNAL(released()), this, SLOT(Powers()));
   connect(ui->Button_SquareRoot, SIGNAL(released()), this,
           SLOT(SquareOrCubeRoot()));
   connect(ui->Button_CubeRoot, SIGNAL(released()), this,
           SLOT(SquareOrCubeRoot()));
   connect(ui->Button_OneOverX, SIGNAL(released()), this, SLOT(OneOverX()));
-  connect(ui->Button_YRootX, SIGNAL(released()), this, SLOT(YRootX()));
+  connect(ui->Button_YRootX, SIGNAL(released()), this, SLOT(Powers()));
   connect(ui->Button_Rad, SIGNAL(released()), this, SLOT(RadOrDeg()));
   connect(ui->Button_Sin, SIGNAL(released()), this,
           SLOT(TrigAndHyperbFunctions()));
@@ -90,6 +90,8 @@ Calculator::Calculator(QWidget* parent)
   connect(ui->Button_Ln, SIGNAL(released()), this, SLOT(NaturalLog()));
   connect(ui->Button_Log10, SIGNAL(released()), this, SLOT(Log()));
   connect(ui->Button_Log2, SIGNAL(released()), this, SLOT(Log()));
+  connect(ui->Button_SciNotation, SIGNAL(released()), this, SLOT(EE()));
+  connect(ui->Button_Logy, SIGNAL(released()), this, SLOT(LogBaseY()));
 }
 
 Calculator::~Calculator() {
@@ -103,6 +105,8 @@ void Calculator::releaseButtons() {
   ui->Button_Subtract->setDown(false);
   ui->Button_XPowerY->setDown(false);
   ui->Button_YRootX->setDown(false);
+  ui->Button_SciNotation->setDown(false);
+  ui->Button_Logy->setDown(false);
 }
 
 void Calculator::NumPressed() {
@@ -173,7 +177,8 @@ void Calculator::EqualButton() {
   const QLocale& cLocale = QLocale::system();
   QString displayVal = deleteCommas();
 
-  if (!isEnteringPowerY && !isEnteringBaseY) {
+  if (!isEnteringPowerY && !isEnteringBaseY && !isEnteringEE &&
+      !isEnteringLogBaseY) {
     operationsInARowCount = 0;
     if (operationsBeforePressingEqualCount < 2)
       operationsBeforePressingEqualCount = 0;
@@ -201,6 +206,7 @@ void Calculator::EqualButton() {
   } else if (isEnteringPowerY) {
     double powerY = displayVal.toDouble();
     double result = pow(baseX, powerY);
+
     QString resultString = cLocale.toString(result);
     if (resultString == "0" && baseX != 0.)
       ui->Display->setText("Error");
@@ -209,11 +215,29 @@ void Calculator::EqualButton() {
     isEnteringPowerY = false;
     canReplaceCurrentDisplayNum = true;
     baseX = 0;
+  } else if (isEnteringEE) {
+    double EE = displayVal.toDouble();
+    double result = sciNotationBase * (pow(10, EE));
+    QString resultString = cLocale.toString(result);
+
+    ui->Display->setText(resultString);
+    isEnteringEE = false;
+    canReplaceCurrentDisplayNum = true;
+    sciNotationBase = 0;
+  } else if (isEnteringLogBaseY) {
+    double baseY = displayVal.toDouble();
+    double result = (log(logExponentX) / log(baseY));
+    QString resultString = cLocale.toString(result);
+
+    ui->Display->setText(resultString);
+    isEnteringLogBaseY = false;
+    canReplaceCurrentDisplayNum = true;
+    baseY = 0;
   } else {
     double baseY = displayVal.toDouble();
     double result = pow(baseY, powerX);
-
     QString resultString = cLocale.toString(result);
+
     if (resultString == "0" && baseY != 0.)
       ui->Display->setText("Error");
     else
@@ -506,38 +530,29 @@ void Calculator::ToTheXPower() {
   justPressedOperator = false;
 }
 
-void Calculator::XToThePowerOfY() {
+void Calculator::Powers() {
+  QString butVal = static_cast<QPushButton*>(sender())->text();
   operationsInARowCount++;
   if (operationsInARowCount > 1)
     ClearOperatorTriggers();  // If we're changing operator from one to another,
                               // clear triggers
 
-  if (!isEnteringPowerY) {
+  if (!isEnteringPowerY && butVal == "x^y") {
     if (deleteCommas() == "Error")
       return;
     baseX = deleteCommas().toDouble();
     canReplaceCurrentDisplayNum = true;
     isEnteringPowerY = true;
-  }
-  ui->Button_XPowerY->setDown(isEnteringPowerY);
-  justPressedOperator = true;
-}
-
-void Calculator::YRootX() {
-  operationsInARowCount++;
-  if (operationsInARowCount > 1)
-    ClearOperatorTriggers();  // If we're changing operator from one to another,
-                              // clear triggers
-
-  if (!isEnteringBaseY) {
+    ui->Button_XPowerY->setDown(isEnteringPowerY);
+  } else if (!isEnteringBaseY && butVal == "y^x") {
     if (deleteCommas() == "Error")
       return;
-
     powerX = deleteCommas().toDouble();
     canReplaceCurrentDisplayNum = true;
     isEnteringBaseY = true;
+    ui->Button_YRootX->setDown(isEnteringBaseY);
   }
-  ui->Button_YRootX->setDown(isEnteringBaseY);
+
   justPressedOperator = true;
 }
 
@@ -556,12 +571,12 @@ void Calculator::SquareOrCubeRoot() {
   } else {
     double squareRoot =
         (butVal == "sqrt(x)") ? sqrt(displayVal) : cbrt(displayVal);
-//    std::stringstream ss;
-//    ss.imbue(std::locale(""));
+    //    std::stringstream ss;
+    //    ss.imbue(std::locale(""));
 
-//    ss << std::setprecision(16)<< std::fixed << squareRoot;
-//    std::string s = ss.str();
-//    ui->Display->setText(QString::fromStdString(s));
+    //    ss << std::setprecision(16)<< std::fixed << squareRoot;
+    //    std::string s = ss.str();
+    //    ui->Display->setText(QString::fromStdString(s));
 
     QString resultString = cLocale.toString(squareRoot);
     ui->Display->setText(resultString);
@@ -655,6 +670,41 @@ void Calculator::Log() {
   }
   canReplaceCurrentDisplayNum = true;
   justPressedOperator = false;
+}
+void Calculator::LogBaseY() {
+  operationsInARowCount++;
+  if (operationsInARowCount > 1)
+    ClearOperatorTriggers();  // If we're changing operator from one to another,
+                              // clear triggers
+
+  if (!isEnteringLogBaseY) {
+    if (deleteCommas() == "Error")
+      return;
+    logExponentX = deleteCommas().toDouble();
+    canReplaceCurrentDisplayNum = true;
+    isEnteringLogBaseY = true;
+    ui->Button_Logy->setDown(isEnteringLogBaseY);
+  }
+
+  justPressedOperator = true;
+}
+
+void Calculator::EE() {
+  operationsInARowCount++;
+  if (operationsInARowCount > 1)
+    ClearOperatorTriggers();  // If we're changing operator from one to another,
+                              // clear triggers
+
+  if (!isEnteringEE) {
+    if (deleteCommas() == "Error")
+      return;
+
+    sciNotationBase = deleteCommas().toDouble();
+    canReplaceCurrentDisplayNum = true;
+    isEnteringEE = true;
+  }
+  ui->Button_SciNotation->setDown(isEnteringEE);
+  justPressedOperator = true;
 }
 
 QString Calculator::deleteCommas() {
