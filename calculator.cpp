@@ -22,8 +22,9 @@ Calculator::Calculator(QWidget* parent)
   ui->setupUi(this);
   ui->Display->setText(QString::number(calcVal));
 
-  srand((unsigned)time(nullptr));  // Randomizes seed by returning the integer
-                                   // number of seconds from the system clock
+  srand(static_cast<unsigned>(
+      time(nullptr)));  // Randomizes seed by returning the integer
+                        // number of seconds from the system clock
 
   QPushButton* numButtons[10];
   for (int i = 0; i < 10; i++) {
@@ -97,6 +98,8 @@ Calculator::Calculator(QWidget* parent)
   connect(ui->Button_SciNotation, SIGNAL(released()), this, SLOT(EE()));
   connect(ui->Button_Logy, SIGNAL(released()), this, SLOT(LogBaseY()));
   connect(ui->Button_Second, SIGNAL(released()), this, SLOT(SecondPressed()));
+  connect(ui->Button_YRoot, SIGNAL(released()), this, SLOT(YRootX()));
+
 }
 
 Calculator::~Calculator() {
@@ -112,10 +115,11 @@ void Calculator::releaseButtons() {
   ui->Button_YPowerX->setDown(false);
   ui->Button_SciNotation->setDown(false);
   ui->Button_Logy->setDown(false);
+  ui->Button_YRoot->setDown(false);
+
 }
 
 void Calculator::NumPressed() {
-  const QLocale& cLocale = QLocale::system();
   QPushButton* button = static_cast<QPushButton*>(sender());
   QString butVal = button->text();
   QString displayVal = deleteCommas();
@@ -183,7 +187,7 @@ void Calculator::EqualButton() {
   QString displayVal = deleteCommas();
 
   if (!isEnteringPowerY && !isEnteringBaseY && !isEnteringEE &&
-      !isEnteringLogBaseY) {
+      !isEnteringLogBaseY && !isEnteringRootY) {
     operationsInARowCount = 0;
     if (operationsBeforePressingEqualCount < 2)
       operationsBeforePressingEqualCount = 0;
@@ -238,6 +242,15 @@ void Calculator::EqualButton() {
     isEnteringLogBaseY = false;
     canReplaceCurrentDisplayNum = true;
     baseY = 0;
+  } else if (isEnteringRootY) {
+    double rootY = displayVal.toDouble();
+    double result = pow(rootOfX, 1 / rootY);
+    QString resultString = cLocale.toString(result);
+
+    ui->Display->setText(resultString);
+    isEnteringRootY = false;
+    canReplaceCurrentDisplayNum = true;
+    rootOfX = 0;
   } else {
     double baseY = displayVal.toDouble();
     double result = pow(baseY, powerX);
@@ -279,7 +292,6 @@ void Calculator::ChangeNumberSign() {
     QRegExp reg("[-]?[0-9.]*");
     QString result;
     if (reg.exactMatch(displayVal)) {
-      const QLocale& cLocale = QLocale::system();
       if (displayVal.toStdString().find("-") ==
           std::string::npos) {  // If its a positive 0
         result = "-" + displayVal;
@@ -297,7 +309,7 @@ void Calculator::ClearButtonPressed() {
   ClearAllTriggers();
   operationsBeforePressingEqualCount = 0;
 }
-//temp
+
 void Calculator::MemoryAdd() {
   QString displayVal = deleteCommas();
   double newMemory = deleteCommasMemory().toDouble() + displayVal.toDouble();
@@ -410,7 +422,6 @@ void Calculator::ClearOperatorTriggers() {
 
 void Calculator::GetMathButton() {
   double displayVal = deleteCommas().toDouble();
-  const QLocale& cLocale = QLocale::system();
 
   QPushButton* button = static_cast<QPushButton*>(sender());
   QString butVal = button->text();
@@ -669,7 +680,6 @@ void Calculator::Log() {
   const QLocale& cLocale = QLocale::system();
   QPushButton* button = static_cast<QPushButton*>(sender());
   QString butVal = button->text();
-  double result;
 
   if (dblDisplayVal == 0)
     ui->Display->setText("Error");
@@ -699,6 +709,24 @@ void Calculator::LogBaseY() {
     canReplaceCurrentDisplayNum = true;
     isEnteringLogBaseY = true;
     ui->Button_Logy->setDown(isEnteringLogBaseY);
+  }
+
+  justPressedOperator = true;
+}
+
+void Calculator::YRootX() {
+  operationsInARowCount++;
+  if (operationsInARowCount > 1)
+    ClearOperatorTriggers();  // If we're changing operator from one to another,
+                              // clear triggers
+
+  if (!isEnteringRootY) {
+    if (deleteCommas() == "Error")
+      return;
+    rootOfX = deleteCommas().toDouble();
+    canReplaceCurrentDisplayNum = true;
+    isEnteringRootY = true;
+    ui->Button_YRoot->setDown(isEnteringRootY);
   }
 
   justPressedOperator = true;

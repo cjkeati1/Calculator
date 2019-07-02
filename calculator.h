@@ -22,8 +22,8 @@ class Calculator : public QMainWindow {
   bool multTrigger = false;
   bool addTrigger = false;
   bool subTrigger = false;
-  bool *isRad_ptr = nullptr;
-  bool *isSecondMode = nullptr;
+  bool* isRad_ptr = nullptr;
+  bool* isSecondMode = nullptr;
 
  protected:
   bool canChangeOperator = false;
@@ -36,6 +36,8 @@ class Calculator : public QMainWindow {
   bool justPressedOperator = false;
   bool isEnteringEE = false;
   bool isEnteringLogBaseY = false;
+  bool isEnteringRootY = false;
+  double rootOfX = 0.;
   double baseX = 0.;
   double powerX = 0.;
   double calcVal = 0.;
@@ -71,6 +73,7 @@ class Calculator : public QMainWindow {
   void Powers();
   void EToThePowerOfX();
   void ToTheXPower();
+  void YRootX();
   void SquareOrCubeRoot();
   void releaseButtons();
   void OneOverX();
