@@ -297,7 +297,7 @@ void Calculator::ClearButtonPressed() {
   ClearAllTriggers();
   operationsBeforePressingEqualCount = 0;
 }
-
+//temp
 void Calculator::MemoryAdd() {
   QString displayVal = deleteCommas();
   double newMemory = deleteCommasMemory().toDouble() + displayVal.toDouble();
