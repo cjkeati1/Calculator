@@ -22,6 +22,8 @@ class Calculator : public QMainWindow {
   bool multTrigger = false;
   bool addTrigger = false;
   bool subTrigger = false;
+  bool *isRad_ptr = nullptr;
+  bool *isSecondMode = nullptr;
 
  protected:
   bool canChangeOperator = false;
@@ -29,6 +31,7 @@ class Calculator : public QMainWindow {
   bool isEnteringBaseY = false;
   bool isNegativeZero = false;
   bool isRadiansMode = false;
+  bool pressedSecond = false;
   bool isWhole = true;
   bool justPressedOperator = false;
   bool isEnteringEE = false;
@@ -46,6 +49,7 @@ class Calculator : public QMainWindow {
  private slots:
   void NumPressed();
   void MathButtonPressed();
+  void SecondPressed();
   void EqualButton();
   void ChangeNumberSign();
   void ClearButtonPressed();

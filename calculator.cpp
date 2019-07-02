@@ -35,6 +35,9 @@ Calculator::Calculator(QWidget* parent)
   //  ui->Button_Squared->setText("x<sup>2</sup>");
   // ui->Button_CubeRoot->setText(QStringLiteral("\u221B"));
 
+  isSecondMode = &pressedSecond;
+  isRad_ptr = &isRadiansMode;
+
   // Connecting buttons to their respective methods
   connect(ui->Button_Add, SIGNAL(released()), this, SLOT(MathButtonPressed()));
   connect(ui->Button_Subtract, SIGNAL(released()), this,
@@ -92,6 +95,7 @@ Calculator::Calculator(QWidget* parent)
   connect(ui->Button_Log2, SIGNAL(released()), this, SLOT(Log()));
   connect(ui->Button_SciNotation, SIGNAL(released()), this, SLOT(EE()));
   connect(ui->Button_Logy, SIGNAL(released()), this, SLOT(LogBaseY()));
+  connect(ui->Button_Second, SIGNAL(released()), this, SLOT(SecondPressed()));
 }
 
 Calculator::~Calculator() {
@@ -616,11 +620,13 @@ void Calculator::TrigAndHyperbFunctions() {
 
   TrigAndHyperbolic trigFunctions;
 
-  result =
-      trigFunctions.TrigAndHyperbFunctions(displayVal, butVal, isRadiansMode);
-
-  if (result == "Error")
+  if (deleteCommas() == "Error") {
+    // canReplaceCurrentDisplayNum = true;
     return;
+  }
+
+  result = trigFunctions.TrigAndHyperbFunctions(displayVal, butVal, isRad_ptr,
+                                                isSecondMode);
 
   ui->Display->setText(result);
 
@@ -705,6 +711,16 @@ void Calculator::EE() {
   }
   ui->Button_SciNotation->setDown(isEnteringEE);
   justPressedOperator = true;
+}
+void Calculator::SecondPressed() {
+  pressedSecond = !pressedSecond;
+  ui->Button_Second->setText((pressedSecond) ? "1st" : "2nd");
+  ui->Button_Sin->setText((pressedSecond) ? "asin" : "sin");
+  ui->Button_Cos->setText((pressedSecond) ? "acos" : "cos");
+  ui->Button_Tan->setText((pressedSecond) ? "atan" : "tan");
+  ui->Button_Sinh->setText((pressedSecond) ? "asinh" : "sinh");
+  ui->Button_Cosh->setText((pressedSecond) ? "acosh" : "cosh");
+  ui->Button_Tanh->setText((pressedSecond) ? "atanh" : "tanh");
 }
 
 QString Calculator::deleteCommas() {

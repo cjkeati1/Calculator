@@ -9,7 +9,7 @@ class TrigAndHyperbolic
 public:
     TrigAndHyperbolic();
 
-    QString TrigAndHyperbFunctions(double displayNum, QString buttonVal, bool isRadiansMode);
+    QString TrigAndHyperbFunctions(double displayNum, QString buttonVal, bool *isRadiansMode, bool *pressedSecond);
 };
 
 #endif // TRIGANDHYPERBOLIC_H

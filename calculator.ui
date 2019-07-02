@@ -1091,7 +1091,13 @@ padding:5px;
      </widget>
     </item>
     <item row="3" column="0">
-     <widget class="QPushButton" name="Button_Factorial_2">
+     <widget class="QPushButton" name="Button_Second">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <pointsize>10</pointsize>
