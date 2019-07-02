@@ -53,8 +53,9 @@ Calculator::Calculator(QWidget* parent)
   connect(ui->Button_Equals, SIGNAL(released()), this,
           SLOT(PressedOnEqualButtonDirectly()));
   connect(ui->Button_MemClear, SIGNAL(released()), this, SLOT(MemoryClear()));
+  connect(ui->Button_MemSub, SIGNAL(released()), this, SLOT(MemorySubtract()));
   connect(ui->Button_MemAdd, SIGNAL(released()), this, SLOT(MemoryAdd()));
-  connect(ui->Button_MemGet, SIGNAL(released()), this, SLOT(MemoryGet()));
+  connect(ui->Button_MemRecall, SIGNAL(released()), this, SLOT(MemoryRecall()));
   connect(ui->Button_Pi, SIGNAL(released()), this, SLOT(PiPressed()));
   connect(ui->Button_Euler, SIGNAL(released()), this,
           SLOT(EulersNumberPressed()));
@@ -76,7 +77,7 @@ Calculator::Calculator(QWidget* parent)
   connect(ui->Button_CubeRoot, SIGNAL(released()), this,
           SLOT(SquareOrCubeRoot()));
   connect(ui->Button_OneOverX, SIGNAL(released()), this, SLOT(OneOverX()));
-  connect(ui->Button_YRootX, SIGNAL(released()), this, SLOT(Powers()));
+  connect(ui->Button_YPowerX, SIGNAL(released()), this, SLOT(Powers()));
   connect(ui->Button_Rad, SIGNAL(released()), this, SLOT(RadOrDeg()));
   connect(ui->Button_Sin, SIGNAL(released()), this,
           SLOT(TrigAndHyperbFunctions()));
@@ -108,7 +109,7 @@ void Calculator::releaseButtons() {
   ui->Button_Add->setDown(false);
   ui->Button_Subtract->setDown(false);
   ui->Button_XPowerY->setDown(false);
-  ui->Button_YRootX->setDown(false);
+  ui->Button_YPowerX->setDown(false);
   ui->Button_SciNotation->setDown(false);
   ui->Button_Logy->setDown(false);
 }
@@ -298,15 +299,23 @@ void Calculator::ClearButtonPressed() {
 }
 
 void Calculator::MemoryAdd() {
-  QString displayVal = ui->Display->text();
-  memory = displayVal;
+  QString displayVal = deleteCommas();
+  double newMemory = deleteCommasMemory().toDouble() + displayVal.toDouble();
+  const QLocale& cLocale = QLocale::system();
+  memory = cLocale.toString(newMemory);
 }
 
+void Calculator::MemorySubtract() {
+  QString displayVal = deleteCommas();
+  double newMemory = deleteCommasMemory().toDouble() - displayVal.toDouble();
+  const QLocale& cLocale = QLocale::system();
+  memory = cLocale.toString(newMemory);
+}
 void Calculator::MemoryClear() {
   memory = "0";
 }
 
-void Calculator::MemoryGet() {
+void Calculator::MemoryRecall() {
   double displayVal = deleteCommas().toDouble();
 
   ui->Display->setText(memory);
@@ -396,7 +405,7 @@ void Calculator::ClearOperatorTriggers() {
   ui->Button_Add->setDown(addTrigger);
   ui->Button_Subtract->setDown(subTrigger);
   ui->Button_XPowerY->setDown(isEnteringPowerY);
-  ui->Button_YRootX->setDown(isEnteringBaseY);
+  ui->Button_YPowerX->setDown(isEnteringBaseY);
 }
 
 void Calculator::GetMathButton() {
@@ -554,7 +563,7 @@ void Calculator::Powers() {
     powerX = deleteCommas().toDouble();
     canReplaceCurrentDisplayNum = true;
     isEnteringBaseY = true;
-    ui->Button_YRootX->setDown(isEnteringBaseY);
+    ui->Button_YPowerX->setDown(isEnteringBaseY);
   }
 
   justPressedOperator = true;
@@ -728,4 +737,11 @@ QString Calculator::deleteCommas() {
   displayVal = displayVal.replace(",", "");
 
   return displayVal;
+}
+
+QString Calculator::deleteCommasMemory() {
+  QString currentMem = memory;
+  currentMem = currentMem.replace(",", "");
+
+  return currentMem;
 }

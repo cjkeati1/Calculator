@@ -54,8 +54,9 @@ class Calculator : public QMainWindow {
   void ChangeNumberSign();
   void ClearButtonPressed();
   void MemoryAdd();
+  void MemorySubtract();
   void MemoryClear();
-  void MemoryGet();
+  void MemoryRecall();
   void PiPressed();
   void EulersNumberPressed();
   void RandomNumberPressed();
@@ -79,6 +80,7 @@ class Calculator : public QMainWindow {
   void Log();
   void LogBaseY();
   void EE();
+  QString deleteCommasMemory();
 
   bool displayIsEmpty();
 };
