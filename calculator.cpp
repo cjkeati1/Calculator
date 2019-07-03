@@ -72,13 +72,14 @@ Calculator::Calculator(QWidget* parent)
           SLOT(EToThePowerOfX()));
   connect(ui->Button_TenPower, SIGNAL(released()), this, SLOT(ToTheXPower()));
   connect(ui->Button_TwoPower, SIGNAL(released()), this, SLOT(ToTheXPower()));
-  connect(ui->Button_XPowerY, SIGNAL(released()), this, SLOT(Powers()));
+  connect(ui->Button_XPowerYOrYPowerX, SIGNAL(released()), this,
+          SLOT(Powers()));
   connect(ui->Button_SquareRoot, SIGNAL(released()), this,
           SLOT(SquareOrCubeRoot()));
   connect(ui->Button_CubeRoot, SIGNAL(released()), this,
           SLOT(SquareOrCubeRoot()));
   connect(ui->Button_OneOverX, SIGNAL(released()), this, SLOT(OneOverX()));
-  connect(ui->Button_YPowerX, SIGNAL(released()), this, SLOT(Powers()));
+  // connect(ui->Button_YPowerX, SIGNAL(released()), this, SLOT(Powers()));
   connect(ui->Button_Rad, SIGNAL(released()), this, SLOT(RadOrDeg()));
   connect(ui->Button_Sin, SIGNAL(released()), this,
           SLOT(TrigAndHyperbFunctions()));
@@ -94,12 +95,9 @@ Calculator::Calculator(QWidget* parent)
           SLOT(TrigAndHyperbFunctions()));
   connect(ui->Button_Ln, SIGNAL(released()), this, SLOT(NaturalLog()));
   connect(ui->Button_Log10, SIGNAL(released()), this, SLOT(Log()));
-  connect(ui->Button_Log2, SIGNAL(released()), this, SLOT(Log()));
   connect(ui->Button_SciNotation, SIGNAL(released()), this, SLOT(EE()));
-  connect(ui->Button_Logy, SIGNAL(released()), this, SLOT(LogBaseY()));
   connect(ui->Button_Second, SIGNAL(released()), this, SLOT(SecondPressed()));
   connect(ui->Button_YRoot, SIGNAL(released()), this, SLOT(YRootX()));
-
 }
 
 Calculator::~Calculator() {
@@ -111,12 +109,10 @@ void Calculator::releaseButtons() {
   ui->Button_Multiply->setDown(false);
   ui->Button_Add->setDown(false);
   ui->Button_Subtract->setDown(false);
-  ui->Button_XPowerY->setDown(false);
-  ui->Button_YPowerX->setDown(false);
+  ui->Button_XPowerYOrYPowerX->setDown(false);
   ui->Button_SciNotation->setDown(false);
-  ui->Button_Logy->setDown(false);
+  ui->Button_Ln->setDown(false);
   ui->Button_YRoot->setDown(false);
-
 }
 
 void Calculator::NumPressed() {
@@ -331,7 +327,7 @@ void Calculator::MemoryRecall() {
   double displayVal = deleteCommas().toDouble();
 
   ui->Display->setText(memory);
-
+  justPressedOperator = false;
   isWhole = (displayVal - static_cast<int>(displayVal) == 0);
   canReplaceCurrentDisplayNum = true;
   releaseButtons();
@@ -416,8 +412,7 @@ void Calculator::ClearOperatorTriggers() {
   ui->Button_Multiply->setDown(multTrigger);
   ui->Button_Add->setDown(addTrigger);
   ui->Button_Subtract->setDown(subTrigger);
-  ui->Button_XPowerY->setDown(isEnteringPowerY);
-  ui->Button_YPowerX->setDown(isEnteringBaseY);
+  ui->Button_XPowerYOrYPowerX->setDown(isEnteringPowerY);
 }
 
 void Calculator::GetMathButton() {
@@ -567,14 +562,14 @@ void Calculator::Powers() {
     baseX = deleteCommas().toDouble();
     canReplaceCurrentDisplayNum = true;
     isEnteringPowerY = true;
-    ui->Button_XPowerY->setDown(isEnteringPowerY);
+    ui->Button_XPowerYOrYPowerX->setDown(isEnteringPowerY);
   } else if (!isEnteringBaseY && butVal == "y^x") {
     if (deleteCommas() == "Error")
       return;
     powerX = deleteCommas().toDouble();
     canReplaceCurrentDisplayNum = true;
     isEnteringBaseY = true;
-    ui->Button_YPowerX->setDown(isEnteringBaseY);
+    ui->Button_XPowerYOrYPowerX->setDown(isEnteringBaseY);
   }
 
   justPressedOperator = true;
@@ -655,6 +650,11 @@ void Calculator::TrigAndHyperbFunctions() {
 }
 
 void Calculator::NaturalLog() {
+    QString buttonVal = static_cast<QPushButton*>(sender())->text();
+    if (buttonVal == "logy") {
+      LogBaseY();
+      return;
+    }
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
@@ -675,6 +675,7 @@ void Calculator::NaturalLog() {
 }
 
 void Calculator::Log() {
+
   QString displayVal = deleteCommas();
   double dblDisplayVal = displayVal.toDouble();
   const QLocale& cLocale = QLocale::system();
@@ -708,7 +709,7 @@ void Calculator::LogBaseY() {
     logExponentX = deleteCommas().toDouble();
     canReplaceCurrentDisplayNum = true;
     isEnteringLogBaseY = true;
-    ui->Button_Logy->setDown(isEnteringLogBaseY);
+    ui->Button_Ln->setDown(isEnteringLogBaseY);
   }
 
   justPressedOperator = true;
@@ -758,6 +759,9 @@ void Calculator::SecondPressed() {
   ui->Button_Sinh->setText((pressedSecond) ? "asinh" : "sinh");
   ui->Button_Cosh->setText((pressedSecond) ? "acosh" : "cosh");
   ui->Button_Tanh->setText((pressedSecond) ? "atanh" : "tanh");
+  ui->Button_XPowerYOrYPowerX->setText(((pressedSecond)) ? "y^x" : "x^y");
+  ui->Button_Ln->setText(((pressedSecond)) ? "logy" : "ln");
+  ui->Button_Log10->setText(((pressedSecond)) ? "log2" : "log10");
 }
 
 QString Calculator::deleteCommas() {
